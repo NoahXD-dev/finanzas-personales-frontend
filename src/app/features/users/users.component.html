@@ -1,0 +1,86 @@
+<main class="mx-auto max-w-6xl p-6">
+  <header class="mb-6">
+    <h1 class="text-2xl font-semibold text-heading">Usuarios</h1>
+    <p class="mt-1 text-sm text-body">
+      Listado de cuentas y activación o inactivación.
+    </p>
+  </header>
+
+  @if (usersResource.error(); as loadError) {
+    <div
+      class="mb-4 rounded-base border border-default bg-neutral-primary-soft px-4 py-3 text-sm text-body"
+      role="alert"
+    >
+      No se pudieron cargar los usuarios: {{ loadError.message }}
+    </div>
+  }
+
+  @if (actionError(); as mutationError) {
+    <div
+      class="mb-4 rounded-base border border-default bg-neutral-primary-soft px-4 py-3 text-sm text-body"
+      role="alert"
+    >
+      No se pudo actualizar el usuario: {{ mutationError }}
+    </div>
+  }
+
+  @if (usersResource.isLoading()) {
+    <p class="text-body text-sm" role="status">Cargando…</p>
+  } @else if (usersResource.value().length === 0) {
+    <p class="text-body text-sm">No hay usuarios registrados.</p>
+  } @else {
+    <div class="relative overflow-x-auto rounded-base border border-default">
+      <table
+        flowbiteTable
+        [data]="usersResource.value()"
+        [striped]="true"
+        [tableHead]="headTpl"
+        [tableBody]="bodyTpl"
+        class="w-full"
+      >
+        <ng-template #headTpl>
+          <tr flowbiteTableHead>
+            <th scope="col" class="px-4 py-3 font-medium text-heading">
+              Nombre
+            </th>
+            <th scope="col" class="px-4 py-3 font-medium text-heading">
+              Correo
+            </th>
+            <th scope="col" class="px-4 py-3 font-medium text-heading">
+              Rol
+            </th>
+            <th scope="col" class="px-4 py-3 font-medium text-heading">
+              Estado
+            </th>
+            <th scope="col" class="px-4 py-3 font-medium text-heading">
+              Acción
+            </th>
+          </tr>
+        </ng-template>
+
+        <ng-template #bodyTpl let-row>
+          <tr flowbiteTableBody>
+            <td class="px-4 py-3 text-body">{{ row.name }}</td>
+            <td class="px-4 py-3 text-body">{{ row.email }}</td>
+            <td class="px-4 py-3 text-body">{{ roleLabel(row.role) }}</td>
+            <td class="px-4 py-3 text-body">{{ statusLabel(row.status) }}</td>
+            <td class="px-4 py-3 text-body">
+              @if (canToggleStatus(row)) {
+                <button
+                  flowbiteButton
+                  type="button"
+                  color="default"
+                  [outline]="true"
+                  [disabled]="savingId() === row.id"
+                  (click)="toggleStatus(row)"
+                >
+                  {{ row.status ? 'Inactivar' : 'Activar' }}
+                </button>
+              }
+            </td>
+          </tr>
+        </ng-template>
+      </table>
+    </div>
+  }
+</main>

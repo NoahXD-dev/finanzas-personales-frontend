@@ -5,6 +5,7 @@ import { Button } from 'flowbite-angular/button';
 import { Icon } from 'flowbite-angular/icon';
 import { wallet } from 'flowbite-angular/icon/solid/e-commerce';
 import { chartPie } from 'flowbite-angular/icon/solid/general';
+import { users } from 'flowbite-angular/icon/solid/user';
 import {
   Sidebar,
   SidebarContent,
@@ -24,7 +25,7 @@ import { AuthService } from '../../core/auth/auth.service';
     SidebarContent,
     SidebarItem,
   ],
-  providers: [provideIcons({ chartPie, wallet })],
+  providers: [provideIcons({ chartPie, wallet, users })],
   templateUrl: './app-sidebar.component.html',
 })
 export class AppSidebarComponent {

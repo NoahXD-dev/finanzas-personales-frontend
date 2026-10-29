@@ -1,5 +1,13 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { Observable, finalize, map, tap } from 'rxjs';
+import {
+  Observable,
+  finalize,
+  map,
+  of,
+  shareReplay,
+  tap,
+  catchError,
+} from 'rxjs';
 
 import { GraphqlClient } from '../graphql/graphql.client';
 import {
@@ -19,7 +27,7 @@ export class AuthService {
   private readonly tokenStore = inject(TokenStore);
 
   private readonly userState = signal<AuthUser | null>(null);
-  private meLoaded = false;
+  private meRequest: Observable<AuthUser | null> | null = null;
 
   readonly user = this.userState.asReadonly();
   readonly token = computed(() => this.tokenStore.get());
@@ -49,30 +57,44 @@ export class AuthService {
   }
 
   loadMe(): void {
-    if (this.meLoaded || this.tokenStore.get() === null) {
-      return;
+    this.ensureUser().subscribe();
+  }
+
+  ensureUser(): Observable<AuthUser | null> {
+    const current = this.userState();
+    if (current !== null) {
+      return of(current);
     }
-    this.meLoaded = true;
-    this.graphql.query<MeGqlResponse>(ME_QUERY).subscribe({
-      next: (data) => {
-        this.userState.set(this.toAuthUser(data.me));
-      },
-      error: () => {
-        this.clearSession();
-      },
-    });
+    if (this.tokenStore.get() === null) {
+      return of(null);
+    }
+    if (this.meRequest === null) {
+      this.meRequest = this.graphql.query<MeGqlResponse>(ME_QUERY).pipe(
+        map((data) => {
+          const user = this.toAuthUser(data.me);
+          this.userState.set(user);
+          return user;
+        }),
+        catchError(() => {
+          this.clearSession();
+          return of(null);
+        }),
+        shareReplay({ bufferSize: 1, refCount: false }),
+      );
+    }
+    return this.meRequest;
   }
 
   clearSession(): void {
     this.tokenStore.clear();
     this.userState.set(null);
-    this.meLoaded = false;
+    this.meRequest = null;
   }
 
   private setSession(accessToken: string, user: AuthUser): void {
     this.tokenStore.set(accessToken);
     this.userState.set(user);
-    this.meLoaded = true;
+    this.meRequest = null;
   }
 
   private toAuthUser(row: {

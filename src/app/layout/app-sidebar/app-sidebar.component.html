@@ -26,6 +26,19 @@
           Movimientos
         </a>
       </li>
+
+      @if (user()?.role === 'super') {
+        <li>
+          <a
+            flowbiteSidebarItem
+            routerLink="/users"
+            routerLinkActive="bg-neutral-primary-soft"
+          >
+            <flowbite-icon name="users" class="size-5 mr-2" />
+            Usuarios
+          </a>
+        </li>
+      }
     </ul>
 
     <div class="mt-auto border-t border-default px-4 py-4">
