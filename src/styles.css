@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import 'flowbite/src/themes/default';
+@import 'apexcharts/dist/apexcharts.css';
+@import 'tailwindcss';
+
+/* Solo tema claro hasta habilitar dark explícitamente con la clase .dark */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@plugin 'flowbite/plugin';
+@source '../node_modules/flowbite';
+
+@source "../node_modules/flowbite-angular";
+
+html {
+  color-scheme: light;
+}
+
+body {
+  @apply min-h-screen bg-neutral-secondary text-body antialiased;
+}

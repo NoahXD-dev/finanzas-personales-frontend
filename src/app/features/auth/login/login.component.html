@@ -1,0 +1,76 @@
+<main
+  class="flex min-h-screen items-center justify-center bg-neutral-secondary p-6"
+>
+  <div class="w-full max-w-md">
+    <header class="mb-6 text-center">
+      <h1 class="text-2xl font-semibold text-heading">Iniciar sesión</h1>
+      <p class="mt-1 text-sm text-body">
+        Accede para consultar y gestionar tus finanzas.
+      </p>
+    </header>
+
+    <div flowbiteCard class="rounded-base border border-default bg-neutral-primary-soft w-full">
+      <div flowbiteCardHeader class="border-b border-default px-6 py-4">
+        <p class="text-sm font-medium text-heading">Credenciales</p>
+      </div>
+      <div flowbiteCardContent class="px-6 py-5">
+        @if (errorMessage(); as message) {
+          <div flowbiteAlert color="failure" class="mb-4" role="alert">
+            <div flowbiteAlertContent>{{ message }}</div>
+          </div>
+        }
+
+        <form class="space-y-4" [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div flowbiteFormField>
+            <label flowbiteLabel for="login-email">Correo</label>
+            <input
+              flowbiteFormControl
+              id="login-email"
+              type="email"
+              autocomplete="email"
+              formControlName="email"
+            />
+            @if (form.controls.email.touched && form.controls.email.invalid) {
+              <p class="mt-1 text-sm text-danger" role="alert">
+                Introduce un correo válido.
+              </p>
+            }
+          </div>
+
+          <div flowbiteFormField>
+            <label flowbiteLabel for="login-password">Contraseña</label>
+            <input
+              flowbiteFormControl
+              id="login-password"
+              type="password"
+              autocomplete="current-password"
+              formControlName="password"
+            />
+            @if (
+              form.controls.password.touched && form.controls.password.invalid
+            ) {
+              <p class="mt-1 text-sm text-danger" role="alert">
+                La contraseña es obligatoria.
+              </p>
+            }
+          </div>
+
+          <button
+            flowbiteButton
+            type="submit"
+            outline
+            color="info"
+            class="w-full"
+            [disabled]="submitting()"
+          >
+            @if (submitting()) {
+              Entrando…
+            } @else {
+              Entrar
+            }
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,121 @@
+<main class="mx-auto max-w-6xl p-6">
+  <header class="mb-6">
+    <h1 class="text-2xl font-semibold text-heading">Movimientos</h1>
+    <p class="mt-1 text-sm text-body">Listado de ingresos y gastos.</p>
+  </header>
+
+  <section class="mb-6">
+    <app-flowbite-date-range
+      [from]="fromDate()"
+      [to]="toDate()"
+      (rangeChange)="onDateRangeChange($event)"
+    />
+    @if (dateRangeInvalid()) {
+      <p class="mt-2 text-sm text-danger" role="alert">
+        La fecha inicial no puede ser posterior a la final.
+      </p>
+    }
+  </section>
+
+  @if (movementsResource.error(); as error) {
+    <div
+      class="mb-4 rounded-base border border-default bg-neutral-primary-soft px-4 py-3 text-sm text-body"
+      role="alert"
+    >
+      No se pudieron cargar los movimientos: {{ error.message }}
+    </div>
+  }
+
+  <section class="mb-8">
+    @if (movementsByCategoryResource.error(); as categoryError) {
+      <div
+        class="mb-4 rounded-base border border-default bg-neutral-primary-soft px-4 py-3 text-sm text-body"
+        role="alert"
+      >
+        No se pudieron cargar los totales por categoría: {{ categoryError.message }}
+      </div>
+    }
+    @if (movementsByMonthResource.error(); as monthError) {
+      <div
+        class="mb-4 rounded-base border border-default bg-neutral-primary-soft px-4 py-3 text-sm text-body"
+        role="alert"
+      >
+        No se pudieron cargar los totales por mes: {{ monthError.message }}
+      </div>
+    }
+    @if (movementSummaryResource.error(); as summaryError) {
+      <div
+        class="mb-4 rounded-base border border-default bg-neutral-primary-soft px-4 py-3 text-sm text-body"
+        role="alert"
+      >
+        No se pudo cargar el resumen: {{ summaryError.message }}
+      </div>
+    }
+
+    @if (movementSummaryResource.isLoading()) {
+      <p class="mb-6 text-sm text-body" role="status">Cargando…</p>
+    } @else if (!movementSummaryResource.error()) {
+      @let summary = movementSummaryResource.value();
+      <div class="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+        <article
+          class="rounded-base border border-default bg-neutral-primary-soft p-4"
+        >
+          <p class="text-sm text-body">Ingresos</p>
+          <p
+            class="mt-1 text-2xl font-semibold"
+            [class]="amountColorClass(summary.totalIncome)"
+          >
+            {{ formatCurrency(summary.totalIncome) }}
+          </p>
+        </article>
+        <article
+          class="rounded-base border border-default bg-neutral-primary-soft p-4"
+        >
+          <p class="text-sm text-body">Gastos</p>
+          <p
+            class="mt-1 text-2xl font-semibold"
+            [class]="amountColorClass(summary.totalExpense)"
+          >
+            {{ formatCurrency(summary.totalExpense) }}
+          </p>
+        </article>
+        <article
+          class="rounded-base border border-default bg-neutral-primary-soft p-4"
+        >
+          <p class="text-sm text-body">Balance</p>
+          <p
+            class="mt-1 text-2xl font-semibold"
+            [class]="amountColorClass(summary.balance)"
+          >
+            {{ formatCurrency(summary.balance) }}
+          </p>
+        </article>
+      </div>
+    }
+
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <app-bar-chart
+        title="Por categoría"
+        [categories]="categoryChartCategories()"
+        [series]="categoryChartSeries()"
+        [loading]="movementsByCategoryResource.isLoading()"
+        emptyMessage="No hay totales por categoría en el periodo seleccionado."
+      />
+      <app-line-chart
+        title="Por mes"
+        [categories]="monthChartCategories()"
+        [series]="monthChartSeries()"
+        [loading]="movementsByMonthResource.isLoading()"
+        emptyMessage="No hay totales por mes en el periodo seleccionado."
+      />
+    </div>
+  </section>
+
+  <app-data-table
+    title="Movimientos"
+    [columns]="movementColumns"
+    [data]="movementsResource.value()"
+    [loading]="movementsResource.isLoading()"
+    emptyMessage="No hay movimientos registrados."
+  />
+</main>

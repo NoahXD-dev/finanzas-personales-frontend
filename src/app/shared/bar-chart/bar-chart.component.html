@@ -1,0 +1,12 @@
+@if (loading()) {
+  <p class="text-body text-sm" role="status">Cargando…</p>
+} @else if (categories().length === 0) {
+  <p class="text-body text-sm">{{ emptyMessage() }}</p>
+} @else {
+  @if (title()) {
+    <h2 class="mb-3 text-lg font-medium text-heading">{{ title() }}</h2>
+  }
+  <div class="rounded-base border border-default bg-neutral-primary-soft p-4">
+    <div #chartHost class="min-h-80 w-full"></div>
+  </div>
+}

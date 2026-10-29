@@ -1,0 +1,39 @@
+@if (loading()) {
+  <p class="text-body text-sm" role="status">Cargando…</p>
+} @else if (data().length === 0) {
+  <p class="text-body text-sm">{{ emptyMessage() }}</p>
+} @else {
+  @if (title()) {
+    <h2 class="mb-3 text-lg font-medium text-heading">{{ title() }}</h2>
+  }
+  <div class="relative overflow-x-auto rounded-base border border-default">
+    <table
+      flowbiteTable
+      [data]="data()"
+      [striped]="true"
+      [tableHead]="headTpl"
+      [tableBody]="bodyTpl"
+      class="w-full"
+    >
+      <ng-template #headTpl>
+        <tr flowbiteTableHead>
+          @for (column of columns(); track column.key) {
+            <th scope="col" class="px-4 py-3 font-medium text-heading">
+              {{ column.header }}
+            </th>
+          }
+        </tr>
+      </ng-template>
+
+      <ng-template #bodyTpl let-row>
+        <tr flowbiteTableBody>
+          @for (column of columns(); track column.key) {
+            <td class="px-4 py-3 text-body">
+              {{ cellValue(row, column) }}
+            </td>
+          }
+        </tr>
+      </ng-template>
+    </table>
+  </div>
+}
