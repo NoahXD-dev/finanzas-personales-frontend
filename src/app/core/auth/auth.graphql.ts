@@ -13,6 +13,21 @@ export const LOGIN_MUTATION = `
   }
 `;
 
+export const REGISTER_MUTATION = `
+  mutation Register($input: RegisterInput!) {
+    register(input: $input) {
+      accessToken
+      user {
+        id
+        name
+        email
+        role
+        status
+      }
+    }
+  }
+`;
+
 export const LOGOUT_MUTATION = `
   mutation Logout {
     logout
@@ -42,6 +57,10 @@ export interface LoginGqlResponse {
       status: boolean;
     };
   };
+}
+
+export interface RegisterGqlResponse {
+  register: LoginGqlResponse['login'];
 }
 
 export interface LogoutGqlResponse {

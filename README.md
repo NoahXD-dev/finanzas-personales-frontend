@@ -1,6 +1,6 @@
 # Finanzas personales (frontend)
 
-Dashboard web para consultar y gestionar finanzas personales. Consume un backend GraphQL con autenticación JWT: login, rutas protegidas y peticiones autenticadas con `Authorization: Bearer`.
+Dashboard web para consultar y gestionar finanzas personales. Consume un backend GraphQL con autenticación JWT: registro, login, rutas protegidas y peticiones autenticadas con `Authorization: Bearer`.
 
 ## Stack
 
@@ -41,7 +41,7 @@ npm test
 El backend Nest emite un JWT en las mutaciones `login` y `register`. Este front:
 
 1. Guarda el `accessToken` en `localStorage` (`fp.accessToken`).
-2. Adjunta `Authorization: Bearer <token>` en todas las peticiones GraphQL salvo login.
+2. Adjunta `Authorization: Bearer <token>` en todas las peticiones GraphQL salvo login y register.
 3. Redirige a `/login` si no hay token (`authGuard`) o si el API responde `UNAUTHORIZED` con sesión activa.
 4. Llama a `me` al entrar al shell autenticado para rehidratar el usuario.
 
@@ -50,6 +50,7 @@ Rutas:
 | Ruta | Acceso |
 |------|--------|
 | `/login` | Solo invitados (`guestGuard`) |
+| `/register` | Solo invitados (`guestGuard`). Crea la cuenta y abre sesión |
 | `/dashboard` | Requiere token (`authGuard`, dentro del shell con sidebar) |
 
 Cerrar sesión ejecuta la mutación `logout` del backend (invalida el token vía `tokenVersion`) y borra el token local.
@@ -63,6 +64,7 @@ src/app/
     graphql/             Cliente HTTP GraphQL y errores con código
   features/
     auth/login/          Página de inicio de sesión
+    auth/register/       Página de registro
     dashboard/           Resumen, gráficas y tabla de movimientos
     movements/           Modelo y servicio de movimientos
   layout/

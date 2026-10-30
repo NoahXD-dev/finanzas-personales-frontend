@@ -4,7 +4,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Alert, AlertContent } from 'flowbite-angular/alert';
 import { Button } from 'flowbite-angular/button';
 import { Card, CardContent, CardHeader } from 'flowbite-angular/card';
@@ -26,6 +26,7 @@ import { GraphqlClientError } from '../../../core/graphql/graphql.error';
     Button,
     Alert,
     AlertContent,
+    RouterLink,
   ],
   templateUrl: './login.component.html',
 })
