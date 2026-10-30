@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 
 import { GraphqlClient } from '../../core/graphql/graphql.client';
-import { Movement } from './movement.model';
+import { CreateMovementInput, Movement } from './movement.model';
 import {
   MovementsGqlResponse, MOVEMENT_QUERY_FILTERED,
   MovementGqlResponse, MOVEMENT_QUERY,
@@ -47,11 +47,9 @@ export class MovementsService {
    * @param movement - The movement to create
    * @returns Observable<Movement>
    */
-  create(movement: Movement): Observable<Movement> {
+  create(input: CreateMovementInput): Observable<Movement> {
     return this.graphql
-      .mutate<CreateMovementGqlResponse>(CREATE_MOVEMENT_MUTATION, {
-        input: movement as Movement,
-      })
+      .mutate<CreateMovementGqlResponse>(CREATE_MOVEMENT_MUTATION, { input })
       .pipe(map((data) => data.createMovement as Movement));
   }
 

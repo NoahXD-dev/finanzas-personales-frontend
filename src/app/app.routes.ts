@@ -4,6 +4,7 @@ import { authGuard } from './core/auth/auth.guard';
 import { guestGuard } from './core/auth/guest.guard';
 import { superGuard } from './core/auth/super.guard';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { MovementsComponent } from './features/movements/movements.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { UsersComponent } from './features/users/users.component';
@@ -27,6 +28,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'movements', component: MovementsComponent },
       {
         path: 'users',
         component: UsersComponent,
