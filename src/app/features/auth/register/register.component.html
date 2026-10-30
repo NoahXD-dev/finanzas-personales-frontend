@@ -1,0 +1,130 @@
+<main
+  class="flex min-h-screen items-center justify-center bg-neutral-secondary p-6"
+>
+  <div class="w-full max-w-md">
+    <header class="mb-6 text-center">
+      <h1 class="text-2xl font-semibold text-heading">Crear cuenta</h1>
+      <p class="mt-1 text-sm text-body">
+        Registra tu cuenta para consultar y gestionar tus finanzas.
+      </p>
+    </header>
+
+    <div flowbiteCard class="rounded-base border border-default bg-neutral-primary-soft w-full">
+      <div flowbiteCardHeader class="border-b border-default px-6 py-4">
+        <p class="text-sm font-medium text-heading">Datos de la cuenta</p>
+      </div>
+      <div flowbiteCardContent class="px-6 py-5">
+        @if (errorMessage(); as message) {
+          <div flowbiteAlert color="failure" class="mb-4" role="alert">
+            <div flowbiteAlertContent>{{ message }}</div>
+          </div>
+        }
+
+        <form class="space-y-4" [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div flowbiteFormField>
+            <label flowbiteLabel for="register-name">Nombre</label>
+            <input
+              flowbiteFormControl
+              id="register-name"
+              type="text"
+              autocomplete="name"
+              formControlName="name"
+            />
+            @if (form.controls.name.touched && form.controls.name.invalid) {
+              <p class="mt-1 text-sm text-danger" role="alert">
+                El nombre es obligatorio.
+              </p>
+            }
+          </div>
+
+          <div flowbiteFormField>
+            <label flowbiteLabel for="register-email">Correo</label>
+            <input
+              flowbiteFormControl
+              id="register-email"
+              type="email"
+              autocomplete="email"
+              formControlName="email"
+            />
+            @if (form.controls.email.touched && form.controls.email.invalid) {
+              <p class="mt-1 text-sm text-danger" role="alert">
+                Introduce un correo válido.
+              </p>
+            }
+          </div>
+
+          <div flowbiteFormField>
+            <label flowbiteLabel for="register-password">Contraseña</label>
+            <input
+              flowbiteFormControl
+              id="register-password"
+              type="password"
+              autocomplete="new-password"
+              formControlName="password"
+            />
+            @if (
+              form.controls.password.touched && form.controls.password.invalid
+            ) {
+              <p class="mt-1 text-sm text-danger" role="alert">
+                La contraseña es obligatoria.
+              </p>
+            }
+          </div>
+
+          <div flowbiteFormField>
+            <label flowbiteLabel for="register-confirm-password">
+              Confirmar contraseña
+            </label>
+            <input
+              flowbiteFormControl
+              id="register-confirm-password"
+              type="password"
+              autocomplete="new-password"
+              formControlName="confirmPassword"
+            />
+            @if (
+              form.controls.confirmPassword.touched &&
+              form.controls.confirmPassword.invalid
+            ) {
+              <p class="mt-1 text-sm text-danger" role="alert">
+                Confirma la contraseña.
+              </p>
+            } @else if (
+              form.controls.confirmPassword.touched && form.errors?.['passwordMismatch']
+            ) {
+              <p class="mt-1 text-sm text-danger" role="alert">
+                Las contraseñas no coinciden.
+              </p>
+            }
+          </div>
+
+          <button
+            flowbiteButton
+            type="submit"
+            outline
+            color="info"
+            class="w-full"
+            [disabled]="submitting()"
+          >
+            @if (submitting()) {
+              Creando cuenta…
+            } @else {
+              Crear cuenta
+            }
+          </button>
+        </form>
+
+        <p class="mt-4 text-center text-sm text-body">
+          ¿Ya tienes cuenta?
+          <a
+            routerLink="/login"
+            queryParamsHandling="preserve"
+            class="font-medium text-heading underline"
+          >
+            Iniciar sesión
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>

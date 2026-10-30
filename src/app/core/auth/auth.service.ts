@@ -14,11 +14,19 @@ import {
   LOGIN_MUTATION,
   LOGOUT_MUTATION,
   ME_QUERY,
+  REGISTER_MUTATION,
   type LoginGqlResponse,
   type LogoutGqlResponse,
   type MeGqlResponse,
+  type RegisterGqlResponse,
 } from './auth.graphql';
-import type { AuthPayload, AuthUser, LoginInput, UserRole } from './auth.model';
+import type {
+  AuthPayload,
+  AuthUser,
+  LoginInput,
+  RegisterInput,
+  UserRole,
+} from './auth.model';
 import { TokenStore } from './token.store';
 
 @Injectable({ providedIn: 'root' })
@@ -41,10 +49,20 @@ export class AuthService {
         { skipAuth: true },
       )
       .pipe(
-        map((data) => ({
-          accessToken: data.login.accessToken,
-          user: this.toAuthUser(data.login.user),
-        })),
+        map((data) => this.toPayload(data.login)),
+        tap((payload) => this.setSession(payload.accessToken, payload.user)),
+      );
+  }
+
+  register(input: RegisterInput): Observable<AuthPayload> {
+    return this.graphql
+      .mutate<RegisterGqlResponse>(
+        REGISTER_MUTATION,
+        { input },
+        { skipAuth: true },
+      )
+      .pipe(
+        map((data) => this.toPayload(data.register)),
         tap((payload) => this.setSession(payload.accessToken, payload.user)),
       );
   }
@@ -95,6 +113,13 @@ export class AuthService {
     this.tokenStore.set(accessToken);
     this.userState.set(user);
     this.meRequest = null;
+  }
+
+  private toPayload(row: LoginGqlResponse['login']): AuthPayload {
+    return {
+      accessToken: row.accessToken,
+      user: this.toAuthUser(row.user),
+    };
   }
 
   private toAuthUser(row: {

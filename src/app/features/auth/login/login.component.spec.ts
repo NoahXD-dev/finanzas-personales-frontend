@@ -30,6 +30,7 @@ describe('LoginComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('#login-email')).toBeTruthy();
     expect(compiled.querySelector('#login-password')).toBeTruthy();
+    expect(compiled.querySelector('a[href="/register"]')).toBeTruthy();
   });
 
   it('should not call login when the form is empty', async () => {
