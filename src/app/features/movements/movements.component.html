@@ -1,0 +1,154 @@
+<main class="mx-auto max-w-6xl p-6">
+  <header class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+    <div>
+      <h1 class="text-2xl font-semibold text-heading">Movimientos</h1>
+      <p class="mt-1 text-sm text-body">{{ monthLabel }}</p>
+    </div>
+    <button
+      flowbiteButton
+      type="button"
+      outline
+      color="info"
+      [ngpDialogTrigger]="createModal"
+      (ngpDialogTriggerClosed)="resetForm()"
+    >
+      Nuevo movimiento
+    </button>
+  </header>
+
+  @if (movementsResource.error(); as loadError) {
+    <div
+      class="mb-4 rounded-base border border-default bg-neutral-primary-soft px-4 py-3 text-sm text-body"
+      role="alert"
+    >
+      No se pudieron cargar los movimientos: {{ loadError.message }}
+    </div>
+  } @else {
+    <app-data-table
+      [columns]="columns"
+      [data]="movementsResource.value()"
+      [loading]="movementsResource.isLoading()"
+      emptyMessage="No hay movimientos en este mes."
+    />
+  }
+
+  <ng-template #createModal let-dialog>
+    <div flowbiteModalOverlay>
+      <div flowbiteModal role="dialog" modal>
+        <h2 flowbiteModalHeader>Nuevo movimiento</h2>
+        <form [formGroup]="form" (ngSubmit)="onSubmit(dialog)">
+          <div flowbiteModalContent>
+            @if (errorMessage(); as message) {
+              <p class="text-sm text-danger" role="alert">{{ message }}</p>
+            }
+
+            <fieldset>
+              <legend class="mb-2 block text-sm font-medium text-heading">Tipo</legend>
+              <div class="flex gap-4">
+                <label class="inline-flex items-center gap-2 text-sm text-body">
+                  <input type="radio" formControlName="type" value="income" />
+                  Ingreso
+                </label>
+                <label class="inline-flex items-center gap-2 text-sm text-body">
+                  <input type="radio" formControlName="type" value="expense" />
+                  Gasto
+                </label>
+              </div>
+            </fieldset>
+
+            <div flowbiteFormField>
+              <label flowbiteLabel for="movement-amount">Monto</label>
+              <input
+                flowbiteFormControl
+                id="movement-amount"
+                type="number"
+                inputmode="decimal"
+                min="0.01"
+                step="0.01"
+                formControlName="amount"
+              />
+              @if (form.controls.amount.touched && form.controls.amount.invalid) {
+                <p class="mt-1 text-sm text-danger" role="alert">
+                  El monto debe ser mayor que cero.
+                </p>
+              }
+            </div>
+
+            <div flowbiteFormField>
+              <label flowbiteLabel for="movement-category">Categoría</label>
+              <input
+                flowbiteFormControl
+                id="movement-category"
+                type="text"
+                formControlName="category"
+              />
+              @if (
+                form.controls.category.touched && form.controls.category.invalid
+              ) {
+                <p class="mt-1 text-sm text-danger" role="alert">
+                  La categoría es obligatoria.
+                </p>
+              }
+            </div>
+
+            <div flowbiteFormField>
+              <label flowbiteLabel for="movement-description">Descripción</label>
+              <input
+                flowbiteFormControl
+                id="movement-description"
+                type="text"
+                formControlName="description"
+              />
+              @if (
+                form.controls.description.touched &&
+                form.controls.description.invalid
+              ) {
+                <p class="mt-1 text-sm text-danger" role="alert">
+                  La descripción es obligatoria.
+                </p>
+              }
+            </div>
+
+            <div flowbiteFormField>
+              <label flowbiteLabel for="movement-date">Fecha</label>
+              <app-flowbite-date inputId="movement-date" formControlName="date" />
+              <p class="mt-1 text-sm text-body">
+                El listado muestra solo el mes en curso.
+              </p>
+              @if (form.controls.date.touched && form.controls.date.invalid) {
+                <p class="mt-1 text-sm text-danger" role="alert">
+                  La fecha es obligatoria.
+                </p>
+              }
+            </div>
+          </div>
+
+          <div flowbiteModalFooter>
+            <button
+              flowbiteButton
+              type="button"
+              color="default"
+              outline
+              (click)="dialog.close()"
+            >
+              Cancelar
+            </button>
+            <button
+              flowbiteButton
+              type="submit"
+              outline
+              color="info"
+              [disabled]="submitting()"
+            >
+              @if (submitting()) {
+                Guardando…
+              } @else {
+                Guardar
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+</main>

@@ -31,7 +31,7 @@ No hay un diferenciador de mercado aparte de ese mecanismo. No inventar uno.
 - Sin token, o si el API responde `UNAUTHORIZED` con sesión activa, vuelve a `/login`. Al entrar al shell llama a `me`.
 - Cerrar sesión llama a `logout` en el backend y borra el token local.
 - El dashboard filtra por rango de fechas y muestra ingresos, gastos y gráficas.
-- Capturar y editar movimientos es parte del trabajo. El cliente GraphQL ya define `createMovement` y `updateMovement`. Esa pantalla aún no existe. El sidebar enlaza `/movements` y esa ruta no está en el router.
+- `/movements` lista los movimientos del mes en curso y crea uno nuevo en un modal. Editar y borrar aún no están.
 - Desarrollo: `npm start` en `http://localhost:4200`. GraphQL por defecto en `http://localhost:3001/graphql`.
 
 ## Capabilities and Constraints
@@ -40,7 +40,7 @@ No hay un diferenciador de mercado aparte de ese mecanismo. No inventar uno.
 - Roles `user` y `super`. Un super activo no se desactiva desde la pantalla de usuarios.
 - Registro en `/register` y login en `/login`. El alta crea un usuario con rol `user` y abre sesión con el token que devuelve `register`.
 - Datos por GraphQL sobre HTTP (`HttpClient`, sin Apollo).
-- Pantallas actuales: `/login` y `/register` (invitados), `/dashboard` (con token), `/users` (solo super).
+- Pantallas actuales: `/login` y `/register` (invitados), `/dashboard` y `/movements` (con token), `/users` (solo super).
 - Abierto: tema visual. Hoy el README deja solo tema claro. No quedó como compromiso.
 
 ## Brand Commitments

@@ -52,6 +52,7 @@ Rutas:
 | `/login` | Solo invitados (`guestGuard`) |
 | `/register` | Solo invitados (`guestGuard`). Crea la cuenta y abre sesión |
 | `/dashboard` | Requiere token (`authGuard`, dentro del shell con sidebar) |
+| `/movements` | Requiere token. Lista el mes en curso y permite crear un movimiento |
 
 Cerrar sesión ejecuta la mutación `logout` del backend (invalida el token vía `tokenVersion`) y borra el token local.
 
@@ -66,7 +67,7 @@ src/app/
     auth/login/          Página de inicio de sesión
     auth/register/       Página de registro
     dashboard/           Resumen, gráficas y tabla de movimientos
-    movements/           Modelo y servicio de movimientos
+    movements/           Listado del mes, alta en modal, modelo y servicio
   layout/
     app-shell/           Sidebar + área de contenido autenticada
     app-sidebar/         Navegación y cierre de sesión
