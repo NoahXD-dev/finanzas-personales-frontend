@@ -1,1 +1,11 @@
-{"0": "App bootstrap and guards", "1": "Dashboard movements UI", "2": "Dev tooling and scripts", "3": "Auth GraphQL session", "4": "Movements GraphQL API", "5": "Angular build targets", "6": "ApexCharts bar and line", "7": "Shell navigation and auth", "8": "Users admin management", "9": "GraphQL client and config", "10": "Runtime npm dependencies", "11": "Flowbite datepicker types", "12": "Angular project config"}
+{
+  "0": "App bootstrap and guards",
+  "2": "Dev tooling and scripts",
+  "3": "Auth GraphQL session",
+  "4": "Movements GraphQL API",
+  "5": "Angular build targets",
+  "7": "Shell navigation and auth",
+  "8": "Users admin management",
+  "10": "Runtime npm dependencies",
+  "11": "Flowbite datepicker types"
+}
