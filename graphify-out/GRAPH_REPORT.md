@@ -1,34 +1,34 @@
 # Graph Report - finanzas-personales-frontend  (2026-10-30)
 
 ## Corpus Check
-- 130 files · ~171,875 words
+- 133 files · ~173,342 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 12 file(s) not represented in the graph (top: .toml 4, (none) 4, .css 2)
 
 ## Summary
-- 2077 nodes · 4033 edges · 118 communities (116 shown, 2 thin omitted)
-- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 139 edges (avg confidence: 0.88)
+- 2104 nodes · 4117 edges · 122 communities (119 shown, 3 thin omitted)
+- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 141 edges (avg confidence: 0.88)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ea64c93b`
+- Built from commit: `cfb1bd3d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- App bootstrap and guards
-- dashboard.component.ts
+- app.routes.ts
+- movements.component.ts
 - Dev tooling and scripts
 - Auth GraphQL session
 - Movements GraphQL API
 - Angular build targets
-- LineChartComponent
+- onAnnotDown
 - Shell navigation and auth
 - Users admin management
 - graphql.client.ts
 - Runtime npm dependencies
 - Flowbite datepicker types
-- live-browser.js
+- renderDesignVisual
 - modern-screenshot.umd.js
 - el
 - Advanced Design Patterns
@@ -36,19 +36,19 @@
 - captureElementToBlob
 - Nielsen's 10 Usability Heuristics
 - initPageChat
-- applyEditing
+- normalizeManualContextText
 - Data Visualization Design
 - actOnAgentTarget
 - Animation & Microinteractions
 - initGlobalBar
 - Cultural UX Considerations
 - new-work.md
-- Categories of Dark Patterns
+- Dark Patterns in UX Design
 - Krug's Usability Principles
 - live.md
-- cleanup
+- live-browser.js
 - Key Principles
-- refreshParamsPanel
+- showBar
 - onboard.md
 - createLiveBrowserDomHelpers
 - impeccable/SKILL.md
@@ -56,32 +56,32 @@
 - The Toolkit
 - showToast
 - createLiveBrowserSessionState
-- startVariantObserver
+- resumeSession
 - resolveLiveInjectionAnchor
-- syncPageChatFocus
+- startVoice
 - Theming & Dark Mode Design
 - adapt.md
 - animate.md
 - Handle `generate`
-- resumeSession
+- cleanup
 - Generate Report
 - mountSvelteComponentVariant
 - WCAG 2.1 AA Checklist
 - New visual work
 - optimize.md
-- WCAG 2.1 AA Checklist
+- Accessibility Deep Dive
 - 2026-10-29T04-00-02Z__atures-dashboard-dashboard-component-html-18bdf226.md
 - Impeccable Asset Producer
 - critique.md
 - Scan mode (approach C: auto-extract, then confirm descriptive language)
-- Accessibility Deep Dive
+- Finanzas personales frontend
 - DESIGN.md — Finanzas Personales (Frontend)
-- BarChartComponent
+- dashboard.component.ts
 - Simplify the Design
 - Hardening Dimensions
 - Refactoring UI Design System
-- UX Heuristic Audit Template
-- flowbite-date-range.component.ts
+- Heuristic Checklist
+- MovementsComponent
 - clarify.md
 - Nielsen's 10 Heuristics
 - Generate Combined Critique Report
@@ -89,13 +89,11 @@
 - polish.md
 - quieter.md
 - scheduleAcceptCleanup
-- Heuristic Checklist
-- Nielsen's 10 Usability Heuristics
+- handleAccept
 - UX Heuristics Framework
-- FlowbiteDateRangeComponent
 - Responsive Design
 - Init flow
-- Finanzas personales frontend
+- syncEditBadgeHitProxies
 - Common Cognitive Load Violations
 - iOS platform
 - Operate mode depth (and Read notes)
@@ -106,7 +104,7 @@
 - doctor.md
 - Extract Flow
 - Shape
-- handleAccept
+- Categories of Dark Patterns
 - The Refactoring UI Framework
 - Generate Report
 - Cognitive Load Assessment
@@ -117,30 +115,37 @@
 - bolder.md
 - Visualize: Direction Comps & Asset Production
 - Component Considerations
-- Operable
-- LoginComponent
 - Region map
-- enterRecoveryWaitingForAnchor
+- ensureAgentPollTooltip
 - Theme Toggle UI
-- Krug's Usability Principles
-- rxjs
+- Common Animation Patterns
+- Operable
+- Performance Guidelines
 - Heuristics Scoring Guide
 - Operate
 - Persuade and Experience
-- Focus Management
+- Loading States
 - Building a Dark Mode Palette
-- Summary
-- Understandable
-- Testing Dark Mode
+- Ethical Alternatives That Work
+- Usability Testing on $0
+- Perceivable
+- Timing & Duration
+- hasTextRows
+- Microinteractions
+- Implementation Strategies
+- The Business Case Against Dark Patterns
+- Navigation Must-Haves
+- The Reality of How Users Use the Web
+- Homepage Guidelines
 
 ## God Nodes (most connected - your core abstractions)
 1. `connectSSE()` - 34 edges
 2. `setLiveState()` - 33 edges
 3. `showToast()` - 33 edges
 4. `resumeSession()` - 33 edges
-5. `initGlobalBar()` - 30 edges
-6. `el()` - 29 edges
-7. `@angular/core` - 29 edges
+5. `@angular/core` - 32 edges
+6. `initGlobalBar()` - 30 edges
+7. `el()` - 29 edges
 8. `buildInsertConfigureRow()` - 28 edges
 9. `handleKeyDown()` - 28 edges
 10. `cleanup()` - 27 edges
@@ -152,10 +157,10 @@
   README.md → src/app/core/auth/token.store.ts
 - `HttpClient GraphQL client` --references--> `GraphqlClient`  [INFERRED]
   README.md → src/app/core/graphql/graphql.client.ts
-- `Bar chart` --references--> `BarChartComponent`  [INFERRED]
-  README.md → src/app/shared/bar-chart/bar-chart.component.ts
 - `Date range picker` --references--> `FlowbiteDateRangeComponent`  [INFERRED]
   README.md → src/app/shared/date/flowbite-date-range.component.ts
+- `Step 2: Act by severity` --references--> `init()`  [INFERRED]
+  .agents/skills/impeccable/reference/doctor.md → .agents/skills/impeccable/scripts/live-browser.js
 
 ## Import Cycles
 - None detected.
@@ -165,47 +170,47 @@
 - **Dashboard period report** — src_app_features_dashboard_dashboard_component_dashboard_view, src_app_features_dashboard_dashboard_component_movement_summary, src_app_shared_date_flowbite_date_range_component_range_picker, src_app_shared_bar_chart_bar_chart_component_chart_shell, src_app_shared_line_chart_line_chart_component_chart_shell, src_app_shared_data_table_data_table_component_table_shell [INFERRED 0.85]
 - **Authenticated shell navigation** — src_app_layout_app_shell_app_shell_component_shell, src_app_layout_app_shell_app_shell_component_router_outlet, src_app_layout_app_sidebar_app_sidebar_component_sidebar_nav, src_app_layout_app_sidebar_app_sidebar_component_dashboard_link, src_app_layout_app_sidebar_app_sidebar_component_movements_link, src_app_layout_app_sidebar_app_sidebar_component_super_role_gate [INFERRED 0.95]
 
-## Communities (118 total, 2 thin omitted)
+## Communities (122 total, 3 thin omitted)
 
-### Community 0 - "App bootstrap and guards"
-Cohesion: 0.12
-Nodes (14): @angular/core, @angular/forms, @angular/router, flowbite-angular, @ng-icons/core, App, appConfig, routes (+6 more)
+### Community 0 - "app.routes.ts"
+Cohesion: 0.13
+Nodes (18): guestGuard, /login route, @angular/core, @angular/platform-browser, @angular/router, rxjs, App, appConfig (+10 more)
 
-### Community 1 - "dashboard.component.ts"
-Cohesion: 0.16
-Nodes (9): Generic data table, Dashboard movements view, DashboardComponent, Movement summary, DataTableColumn, DataTableComponent, Generic Flowbite table, dateFormatter (+1 more)
+### Community 1 - "movements.component.ts"
+Cohesion: 0.13
+Nodes (9): @angular/forms, flowbite-angular, ng-primitives, GraphqlClientError, Login form, LoginComponent, RegisterComponent, DialogClose (+1 more)
 
 ### Community 2 - "Dev tooling and scripts"
 Cohesion: 0.08
 Nodes (24): name, packageManager, private, scripts, build, ng, start, test (+16 more)
 
 ### Community 3 - "Auth GraphQL session"
-Cohesion: 0.16
+Cohesion: 0.14
 Nodes (14): LOGIN_MUTATION, LoginGqlResponse, LOGOUT_MUTATION, LogoutGqlResponse, ME_QUERY, MeGqlResponse, REGISTER_MUTATION, RegisterGqlResponse (+6 more)
 
 ### Community 4 - "Movements GraphQL API"
-Cohesion: 0.14
-Nodes (17): Movement, CREATE_MOVEMENT_MUTATION, CreateMovementGqlResponse, MOVEMENT_QUERY, MOVEMENT_QUERY_FILTERED, MovementGqlResponse, MOVEMENTS_CATEGORIES_QUERY, MOVEMENTS_MONTHLY_QUERY (+9 more)
+Cohesion: 0.13
+Nodes (19): CreateMovementInput, Movement, MovementType, CREATE_MOVEMENT_MUTATION, CreateMovementGqlResponse, MOVEMENT_QUERY, MOVEMENT_QUERY_FILTERED, MovementGqlResponse (+11 more)
 
 ### Community 5 - "Angular build targets"
 Cohesion: 0.05
 Nodes (38): build, serve, test, builder, configurations, defaultConfiguration, options, cli (+30 more)
 
-### Community 6 - "LineChartComponent"
-Cohesion: 0.23
-Nodes (8): ApexCharts, Bar chart, Dashboard feature, Line chart, Movements model and service, Bar chart shell, Line chart shell, LineChartComponent
+### Community 6 - "onAnnotDown"
+Cohesion: 0.20
+Nodes (17): beginEditPin(), buildAnnotationsForCapture(), buildPinElement(), cancelEditingPin(), clampPlaceholderSize(), finalizeEditingPin(), initAnnotOverlay(), localCoords() (+9 more)
 
 ### Community 7 - "Shell navigation and auth"
-Cohesion: 0.11
-Nodes (21): fp.accessToken, App shell, App sidebar, authGuard, Backend CORS, /dashboard route, JWT authentication, logout mutation (+13 more)
+Cohesion: 0.13
+Nodes (19): fp.accessToken, App shell, App sidebar, authGuard, Backend CORS, /dashboard route, JWT authentication, logout mutation (+11 more)
 
 ### Community 8 - "Users admin management"
 Cohesion: 0.19
 Nodes (10): ManagedUser, Users admin view, UsersComponent, mapUserRow(), SET_USER_STATUS_MUTATION, SetUserStatusGqlResponse, UserGqlRow, USERS_QUERY (+2 more)
 
 ### Community 9 - "graphql.client.ts"
-Cohesion: 0.19
-Nodes (9): @angular/common, SKIP_AUTH, authInterceptor(), GraphqlClient, GraphqlError, GraphqlErrorExtensions, GraphqlRequestOptions, GraphqlResponse (+1 more)
+Cohesion: 0.21
+Nodes (8): @angular/common, SKIP_AUTH, GraphqlClient, GraphqlError, GraphqlErrorExtensions, GraphqlRequestOptions, GraphqlResponse, environment
 
 ### Community 10 - "Runtime npm dependencies"
 Cohesion: 0.08
@@ -215,9 +220,9 @@ Nodes (25): dependencies, @angular/common, @angular/compiler, @angular/core, @an
 Cohesion: 0.14
 Nodes (3): Datepicker, DateRangePicker, flowbite-datepicker
 
-### Community 12 - "live-browser.js"
-Cohesion: 0.05
-Nodes (84): applyGlobalBarLabelState(), applyLiveBarPreference(), applyPlaceholderSizingStyles(), bindEditBadgeProxy(), buildCollapsible(), buildColorModels(), buildListHtml(), buildPlaceholderResizeHandles() (+76 more)
+### Community 12 - "renderDesignVisual"
+Cohesion: 0.07
+Nodes (44): buildCollapsible(), buildColorModels(), buildDesignHeader(), buildListHtml(), buildRadiiModels(), buildTypographyModels(), copyToClipboard(), cssSafe() (+36 more)
 
 ### Community 13 - "modern-screenshot.umd.js"
 Cohesion: 0.07
@@ -225,47 +230,47 @@ Nodes (65): ae(), be(), bt(), Ce(), s(), Ct(), de(), dt() (+57 more)
 
 ### Community 14 - "el"
 Cohesion: 0.08
-Nodes (51): actionLabel(), applyConfigureBarChrome(), bindConfigureCountPillTooltip(), bindConfigureInlineControlHover(), bindConfigureModifierPillHover(), buildConfigureActionControl(), buildConfigureCountControl(), buildConfigureRow() (+43 more)
+Nodes (45): actionLabel(), bindConfigureCountPillTooltip(), bindConfigureInlineControlHover(), bindConfigureModifierPillHover(), buildConfigureActionControl(), buildConfigureCountControl(), buildConfigureRow(), buildConfigureSubmitButton() (+37 more)
 
 ### Community 15 - "Advanced Design Patterns"
 Cohesion: 0.04
 Nodes (47): Active/Pressed, Advanced Design Patterns, Avoid, Backdrop, Background Images, Border Radius System, Breadcrumbs, Button Hierarchy (+39 more)
 
 ### Community 16 - "setLiveState"
-Cohesion: 0.12
-Nodes (44): beginNewLiveConfiguration(), cancelEditing(), cancelEditingToPicking(), cancelInsertConfigure(), clearAnnotations(), clearInsertPicking(), closeTunePopover(), cursorForInsertAxis() (+36 more)
+Cohesion: 0.24
+Nodes (29): beginNewLiveConfiguration(), cancelEditing(), cancelEditingToPicking(), cancelInsertConfigure(), clearAnnotations(), clearInsertPicking(), disableInlineEdit(), enterEditingMode() (+21 more)
 
 ### Community 17 - "captureElementToBlob"
-Cohesion: 0.06
-Nodes (43): averageRgb01(), beginEditPin(), bufferToBase64(), buildAnnotationsForCapture(), buildPinElement(), cancelEditingPin(), captureChromeNodes(), captureElementFromRenderedAncestor() (+35 more)
+Cohesion: 0.11
+Nodes (23): averageRgb01(), bufferToBase64(), captureChromeNodes(), captureElementFromRenderedAncestor(), captureElementToBlob(), collectFontCssText(), compileShader(), cssColorToRgb01() (+15 more)
 
 ### Community 18 - "Nielsen's 10 Usability Heuristics"
 Cohesion: 0.05
 Nodes (43): 10. Help and Documentation, 1. Visibility of System Status, 2. Match Between System and Real World, 3. User Control and Freedom, 4. Consistency and Standards, 5. Error Prevention, 6. Recognition Rather Than Recall, 7. Flexibility and Efficiency of Use (+35 more)
 
 ### Community 19 - "initPageChat"
-Cohesion: 0.10
-Nodes (42): armPageChatForTyping(), buildSteerProcessingDots(), buildSteerQueueHint(), clearSteerAwaitTimer(), collapsePageChat(), configureVoiceContext(), expandPageChat(), finishVoiceSession() (+34 more)
+Cohesion: 0.11
+Nodes (39): armPageChatForTyping(), attachSteerFocusDebug(), attachSteerFocusGuard(), buildSteerProcessingDots(), buildSteerQueueHint(), clearSteerAwaitTimer(), clearSteerFocusRecoverTimer(), collapsePageChat() (+31 more)
 
-### Community 20 - "applyEditing"
-Cohesion: 0.07
-Nodes (41): addManualContextText(), applyEditing(), buildLocatorForLeaf(), canRestoreManualEditElement(), collectEditableTextRows(), visit(), collectManualContextPieces(), walk() (+33 more)
+### Community 20 - "normalizeManualContextText"
+Cohesion: 0.09
+Nodes (26): addManualContextText(), canRestoreManualEditElement(), collectManualContextPieces(), walk(), contextElementForManualEdit(), cssIdent(), directMixedTextRestoreNodes(), documentRefClassSuffix() (+18 more)
 
 ### Community 21 - "Data Visualization Design"
 Cohesion: 0.05
 Nodes (41): Accessibility in Data Viz, Alternative: Simple Numbers, Annotation Patterns, Bar Chart Rules, Bar Charts, Bar Styling, Categorical Colors, Chart Annotations (+33 more)
 
 ### Community 22 - "actOnAgentTarget"
-Cohesion: 0.12
-Nodes (39): actOnAgentTarget(), agentTargetBusyReason(), agentTargetOverlayGone(), agentTargetTaken(), claimAgentTarget(), claimAndActOnAgentTarget(), clearStoredManualApplyState(), declineAgentTargetBusy() (+31 more)
+Cohesion: 0.10
+Nodes (46): actOnAgentTarget(), agentTargetBusyReason(), agentTargetOverlayGone(), agentTargetTaken(), claimAgentTarget(), claimAndActOnAgentTarget(), clearStoredManualApplyState(), declineAgentTargetBusy() (+38 more)
 
 ### Community 23 - "Animation & Microinteractions"
-Cohesion: 0.05
-Nodes (38): Accessibility Considerations, Animation Checklist, Animation & Microinteractions, Avoid Problematic Animations, Batch Animations, Button States, Common Animation Patterns, Common Easing Curves (+30 more)
+Cohesion: 0.14
+Nodes (14): Accessibility Considerations, Animation Checklist, Animation & Microinteractions, Avoid Problematic Animations, Common Easing Curves, Custom Cubic Bezier, Easing Functions, Invalid Reasons to Animate (+6 more)
 
 ### Community 24 - "initGlobalBar"
-Cohesion: 0.11
-Nodes (32): agentHasWorkInFlight(), agentStatusText(), barPaletteForTheme(), brandMarkSvg(), buildDesignHeader(), designPanelCss(), detectPageTheme(), stopFocusOutIntoChrome() (+24 more)
+Cohesion: 0.13
+Nodes (26): barPaletteForTheme(), brandMarkSvg(), buildParamsPanel(), detectPageTheme(), stopFocusOutIntoChrome(), formatRangeValue(), handleMouseMove(), hideAgentPollTooltip() (+18 more)
 
 ### Community 25 - "Cultural UX Considerations"
 Cohesion: 0.06
@@ -275,73 +280,73 @@ Nodes (33): Address Fields, Blue, Color Meanings Across Cultures, Content, CSS f
 Cohesion: 0.08
 Nodes (22): Recommended Actions, Craft (deprecated alias), Impeccable Documenter, Input Contract, Output Contract, Workflow, Apply, Live-mode signature params (+14 more)
 
-### Community 27 - "Categories of Dark Patterns"
-Cohesion: 0.06
-Nodes (30): 10. Urgency & Scarcity (False), 1. Forced Continuity, 2. Roach Motel, 3. Privacy Zuckering, 4. Bait and Switch, 5. Confirmshaming, 6. Hidden Costs, 7. Misdirection (+22 more)
+### Community 27 - "Dark Patterns in UX Design"
+Cohesion: 0.14
+Nodes (10): California Privacy Rights Act (CPRA), Checklist, Dark Patterns in UX Design, FTC (United States), GDPR (Europe), How to Audit for Dark Patterns, Regulatory Context, Table of Contents (+2 more)
 
 ### Community 28 - "Krug's Usability Principles"
-Cohesion: 0.07
-Nodes (29): Accessibility Basics, Breadcrumbs, Common Findings, Don't Make Users Think, Don't Make Words Seem Important If They're Not, Don't Waste Users' Goodwill, Fact 1: We Don't Read, We Scan, Fact 2: We Don't Make Optimal Choices, We Satisfice (+21 more)
+Cohesion: 0.15
+Nodes (12): Accessibility Basics, Don't Make Users Think, Don't Make Words Seem Important If They're Not, Don't Waste Users' Goodwill, Krug's Usability Principles, Mobile Considerations, Mobile Specifics, Mobile Trade-offs (+4 more)
 
 ### Community 29 - "live.md"
 Cohesion: 0.07
 Nodes (26): Step 1: Parse the request, Step 2: Reuse the page, then start, Step 3: Generate, Step 4: Accept and close, Cleanup, Exit, First-time setup, Handle `accept` (+18 more)
 
-### Community 30 - "cleanup"
-Cohesion: 0.12
-Nodes (29): buildInsertPlaceholderSnapshotFromDom(), buildPickedAnchorSnapshot(), captureAndEmit(), cleanup(), cleanupAcceptedSession(), clearMountErrorCard(), clearScrollY(), clearSession() (+21 more)
+### Community 30 - "live-browser.js"
+Cohesion: 0.03
+Nodes (84): applyGlobalBarLabelState(), applyLiveBarPreference(), applyParamDefaults(), applyParamValue(), applyPlaceholderSizingStyles(), applySavedParamValues(), buildInsertPlaceholderSnapshotFromDom(), buildLocatorForLeaf() (+76 more)
 
 ### Community 31 - "Key Principles"
 Cohesion: 0.07
 Nodes (28): 1. Context Is King, 1. Simplicity vs. Flexibility, 2. Consistency vs. Context Optimization, 2. Know Your Users, 3. Design for Both When Possible, 3. Efficiency vs. Error Prevention, 4. Discoverability vs. Clean Interface, 4. Make Conscious Trade-offs (+20 more)
 
-### Community 32 - "refreshParamsPanel"
-Cohesion: 0.12
-Nodes (26): applyParamDefaults(), applyParamValue(), applySavedParamValues(), buildParamsPanel(), closedClipPath(), completeParameterPublication(), formatRangeValue(), getVisibleVariantEl() (+18 more)
+### Community 32 - "showBar"
+Cohesion: 0.14
+Nodes (20): buildCyclingRow(), buildDots(), closedClipPath(), closeTunePopover(), cycleVariant(), ensureCyclingRenderable(), getVisibleVariantEl(), hideParamsPanel() (+12 more)
 
 ### Community 33 - "onboard.md"
 Cohesion: 0.09
 Nodes (22): Assess Onboarding Needs, Context Over Ceremony, Contextual Help, Design Onboarding Experiences, Documentation & Help, Empty State Design, Feature Discovery & Adoption, Guided Tours & Walkthroughs (+14 more)
 
 ### Community 34 - "createLiveBrowserDomHelpers"
-Cohesion: 0.14
-Nodes (18): createLiveBrowserDomHelpers(), activeElementDeep(), cloneWithoutChrome(), copyTextViaSelection(), cssId(), liveUiRoot(), makeFrozenAnchor(), own() (+10 more)
+Cohesion: 0.10
+Nodes (24): collectEditableTextRows(), visit(), createLiveBrowserDomHelpers(), activeElementDeep(), cloneWithoutChrome(), copyTextViaSelection(), cssId(), liveUiRoot() (+16 more)
 
 ### Community 35 - "impeccable/SKILL.md"
 Cohesion: 0.10
 Nodes (16): Craft floor, Refuse, Verify, Constraints, Failure modes, Flow, $impeccable hooks, Routing (+8 more)
 
 ### Community 36 - "connectSSE"
-Cohesion: 0.18
-Nodes (22): abortSvelteComponentInjection(), completeParameterGenerationIfReady(), completeSourceInjection(), connectSSE(), findLiveElementForSvelteManifest(), hideShaderOverlay(), injectSvelteComponentsFromManifest(), injectVariantsFromSource() (+14 more)
+Cohesion: 0.20
+Nodes (20): abandonForeignSession(), abandonSupersededGo(), connectSSE(), discardOrphanedSession(), handleDiscard(), injectVariantsFromSource(), isFrameworkComponentPreviewMode(), isSvelteComponentManifestPath() (+12 more)
 
 ### Community 37 - "The Toolkit"
 Cohesion: 0.10
 Nodes (20): Animate complex properties, Assess What "Extraordinary" Means Here, For data-heavy interfaces, For functional UI, For performance-critical UI, For visual/marketing surfaces, Implement with Discipline, Interact with the device (+12 more)
 
 ### Community 38 - "showToast"
-Cohesion: 0.14
-Nodes (19): abandonForeignSession(), abandonSupersededGo(), discardOrphanedSession(), dismissToast(), fetchPendingCount(), handleDiscard(), markSessionHandled(), maybeCompleteAcceptedSession() (+11 more)
+Cohesion: 0.31
+Nodes (11): applyEditing(), copyEditContainerContext(), copyEditLeafContext(), documentRefForElement(), extractContext(), maybeShowFirstSaveToast(), removalDisallowedReason(), removeSelectedElement() (+3 more)
 
 ### Community 39 - "createLiveBrowserSessionState"
 Cohesion: 0.19
 Nodes (17): createLiveBrowserSessionState(), clearHandled(), clearScrollY(), clearSession(), isHandled(), loadSession(), markHandled(), nextCheckpointRevision() (+9 more)
 
-### Community 40 - "startVariantObserver"
-Cohesion: 0.19
-Nodes (19): applyPlaceholderDimensions(), ensureInsertPlaceholder(), finalizeInsertSession(), findInsertAnchorInDom(), isInsertGeneratingSession(), pickVariantContent(), positionAnnotOverlay(), positionBar() (+11 more)
+### Community 40 - "resumeSession"
+Cohesion: 0.16
+Nodes (34): abortSvelteComponentInjection(), applySavedSessionMeta(), captureAndEmit(), completeParameterGenerationIfReady(), completeParameterPublication(), completeSourceInjection(), enterRecoveryWaitingForAnchor(), finalizeInsertSession() (+26 more)
 
 ### Community 41 - "resolveLiveInjectionAnchor"
 Cohesion: 0.16
 Nodes (19): buildSvelteExpressionTextMap(), buildSveltePropValuesFromLiveElement(), buildSveltePropValuesV2(), cloneWithoutElements(), collectTextNodes(), collectVisibleTexts(), cssEscapeIdent(), elementMatchesOriginalMarkup() (+11 more)
 
-### Community 42 - "syncPageChatFocus"
-Cohesion: 0.21
-Nodes (17): attachSteerFocusDebug(), attachSteerFocusGuard(), clearSteerFocusRecoverTimer(), focusConfigureInput(), focusSteerChat(), isInlineEditActive(), isPageEditableActive(), isPageEditableElement() (+9 more)
+### Community 42 - "startVoice"
+Cohesion: 0.29
+Nodes (10): applyConfigureBarChrome(), finishVoiceSession(), isEmbeddedPreviewBrowser(), releaseVoiceEngine(), startVoice(), steerSpeechRecognitionCtor(), steerVoiceErrorMessage(), steerVoiceUnavailableMessage() (+2 more)
 
 ### Community 43 - "Theming & Dark Mode Design"
 Cohesion: 0.12
-Nodes (17): Advanced: Multiple Themes, Brand Themes, Common Mistakes, Dark Mode Color Principles, Dark Mode Philosophy, Don't Just Invert, Implementation Strategies, Key Principles (+9 more)
+Nodes (16): Advanced: Multiple Themes, Brand Themes, Checklist, Common Mistakes, Contrast Ratios, Dark Mode Color Principles, Dark Mode Philosophy, Don't Just Invert (+8 more)
 
 ### Community 44 - "adapt.md"
 Cohesion: 0.12
@@ -355,21 +360,21 @@ Nodes (14): Accessibility and control, Choose material by meaning, Find the job,
 Cohesion: 0.12
 Nodes (16): 1. Read the screenshot (if present), 2. Wrap the element, 3. Load the action's reference, 4. Plan three variants: identity first, then mode, then axes, 5. Apply the freeform prompt (if present), 6. Deliver variants, 7. Parameters (composition-sized, 0-4 per variant), 8. Signal done (+8 more)
 
-### Community 47 - "resumeSession"
-Cohesion: 0.21
-Nodes (16): applySavedSessionMeta(), clampVariantIndex(), clearHandled(), findActiveSessionSummary(), findAdoptableServerSession(), isSessionHandled(), isTerminalSessionSummary(), loadSession() (+8 more)
+### Community 47 - "cleanup"
+Cohesion: 0.19
+Nodes (18): cleanup(), cleanupAcceptedSession(), clearHandled(), clearMountErrorCard(), clearSession(), handleInsertCreate(), mountErrorCardBottomOffset(), removeVariantStateStylesheet() (+10 more)
 
 ### Community 48 - "Generate Report"
 Cohesion: 0.13
 Nodes (14): 1. Accessibility (A11y), 2. Performance, 3. Theming, 4. Responsive Design, 5. Implementation Integrity (CRITICAL), Audit Health Score, Detailed Findings by Severity, Diagnostic Scan (+6 more)
 
 ### Community 49 - "mountSvelteComponentVariant"
-Cohesion: 0.21
-Nodes (15): applyOriginalAttrsToSvelteAnchor(), commitAcceptedSvelteComponentToDom(), componentModuleCandidates(), cyclingCounterText(), cyclingShownVariant(), describeMountFailure(), detectDevServerBase(), getMountedSvelteComponentAnchor() (+7 more)
+Cohesion: 0.16
+Nodes (18): applyOriginalAttrsToSvelteAnchor(), commitAcceptedSvelteComponentToDom(), componentModuleCandidates(), cyclingCounterText(), cyclingShownVariant(), describeMountFailure(), detectDevServerBase(), findLiveElementForSvelteManifest() (+10 more)
 
 ### Community 50 - "WCAG 2.1 AA Checklist"
-Cohesion: 0.13
-Nodes (15): 1.1 Text Alternatives, 1.2 Time-based Media, 1.3 Adaptable, 1.4 Distinguishable, 4.1 Compatible, Automated Testing, Manual Testing Required, Perceivable (+7 more)
+Cohesion: 0.14
+Nodes (14): 3.1 Readable, 3.2 Predictable, 3.3 Input Assistance, 4.1 Compatible, Automated Testing, Manual Testing Required, Quick Reference: Common Failures, Robust (+6 more)
 
 ### Community 51 - "New visual work"
 Cohesion: 0.14
@@ -379,9 +384,9 @@ Nodes (14): 1. Decide what is already true, 2. Ask what will change the work, 3.
 Cohesion: 0.14
 Nodes (13): Animation Performance, Assess Performance Issues, Core Web Vitals Optimization, Cumulative Layout Shift (CLS < 0.1), Interaction to Next Paint (INP < 200ms), Largest Contentful Paint (LCP < 2.5s), Loading Performance, Network Optimization (+5 more)
 
-### Community 53 - "WCAG 2.1 AA Checklist"
-Cohesion: 0.14
-Nodes (14): 1.1 Text Alternatives, 1.3 Adaptable, 1.4 Distinguishable, 2.1 Keyboard Accessible, 2.4 Navigable, 3.1 Readable, 3.2 Predictable, 3.3 Input Assistance (+6 more)
+### Community 53 - "Accessibility Deep Dive"
+Cohesion: 0.06
+Nodes (30): 1.1 Text Alternatives, 1.3 Adaptable, 1.4 Distinguishable, 2.1 Keyboard Accessible, 2.4 Navigable, 3.1 Readable, 3.2 Predictable, 3.3 Input Assistance (+22 more)
 
 ### Community 54 - "2026-10-29T04-00-02Z__atures-dashboard-dashboard-component-html-18bdf226.md"
 Cohesion: 0.14
@@ -399,17 +404,17 @@ Nodes (11): Action Summary, Ask the User, Assessment A: Design Review, Assessmen
 Cohesion: 0.15
 Nodes (13): Component translation rules, Narrative mapping, Scan mode (approach C: auto-extract, then confirm descriptive language), Schema, Step 1: Find the design assets, Step 2: Auto-extract what can be auto-extracted, Step 2b: Stage the frontmatter, Step 3: Ask the user for qualitative language (+5 more)
 
-### Community 58 - "Accessibility Deep Dive"
-Cohesion: 0.15
-Nodes (12): Accessibility Deep Dive, Accessibility Philosophy, Announce Dynamic Changes, Automated Testing, Common Fixes Quick Reference, Hide Decorative Content, Manual Testing Required, Provide Context (+4 more)
+### Community 58 - "Finanzas personales frontend"
+Cohesion: 0.22
+Nodes (9): Angular 21 standalone, Finanzas personales frontend, Backend GraphQL, graphqlUrl, HttpClient GraphQL client, Light theme only, Tailwind CSS 4 and Flowbite, environment (+1 more)
 
 ### Community 59 - "DESIGN.md — Finanzas Personales (Frontend)"
 Cohesion: 0.15
 Nodes (12): 10. Convenciones de código, 11. Anti-patrones (no hacer), 1. Stack de UI (no negociable), 2. Propósito y tono, 3. Color, 4. Tipografía, 5. Espaciado y layout, 6. Componentes clave (+4 more)
 
-### Community 60 - "BarChartComponent"
-Cohesion: 0.26
-Nodes (5): apexcharts, BarChartComponent, currencyFormatter, BarChartSeries, currencyFormatter
+### Community 60 - "dashboard.component.ts"
+Cohesion: 0.05
+Nodes (33): ApexCharts, Bar chart, Dashboard feature, Generic data table, Date range picker, Line chart, Movements model and service, apexcharts (+25 more)
 
 ### Community 61 - "Simplify the Design"
 Cohesion: 0.17
@@ -423,13 +428,9 @@ Nodes (11): Accessibility Resilience, Assess Hardening Needs, Edge Cases & Bound
 Cohesion: 0.17
 Nodes (7): About the Authors, Common Mistakes, Core Principle, Further Reading, Quick Diagnostic, Refactoring UI Design System, Scoring
 
-### Community 64 - "UX Heuristic Audit Template"
-Cohesion: 0.17
-Nodes (12): Audit Information, Immediate (Severity 4), Low Priority (Severity 1), Medium-term (Severity 2), Navigation/Trunk Test, Recommendations Summary, Severity Scale Reference, Short-term (Severity 3) (+4 more)
-
-### Community 65 - "flowbite-date-range.component.ts"
-Cohesion: 0.30
-Nodes (8): flowbite, DateRange, FLOWBITE_PICKER_FORMAT, getCurrentMonthRange(), ISO_DATE_FORMAT, parseIsoDateLocal(), toIsoDateLocal(), registerFlowbiteDatepickerLocales()
+### Community 64 - "Heuristic Checklist"
+Cohesion: 0.07
+Nodes (27): 10. Help and Documentation, 1. Visibility of System Status, 2. Match Between System and Real World, 3. User Control and Freedom, 4. Consistency and Standards, 5. Error Prevention, 6. Recognition Rather Than Recall, 7. Flexibility and Efficiency (+19 more)
 
 ### Community 66 - "clarify.md"
 Cohesion: 0.18
@@ -459,21 +460,13 @@ Nodes (10): Assess Current State, Color Refinement, Composition Refinement, Moti
 Cohesion: 0.31
 Nodes (11): acceptedDomAlreadyClean(), clearHandledWrapperReloadStamp(), deferredRecoverySuperseded(), ensureAcceptedDomClean(), findAcceptedRuntimeWrappers(), handledWrapperReloadKey(), reloadAfterMissingAcceptedDom(), restoreAcceptedDomFromSnapshot() (+3 more)
 
-### Community 73 - "Heuristic Checklist"
-Cohesion: 0.18
-Nodes (11): 10. Help and Documentation, 1. Visibility of System Status, 2. Match Between System and Real World, 3. User Control and Freedom, 4. Consistency and Standards, 5. Error Prevention, 6. Recognition Rather Than Recall, 7. Flexibility and Efficiency (+3 more)
+### Community 73 - "handleAccept"
+Cohesion: 0.16
+Nodes (19): applyPlaceholderDimensions(), commitAcceptedVariantToDom(), ensureInsertPlaceholder(), findAnyVariantsWrapper(), findInsertAnchorInDom(), findVariantsWrapper(), handleAccept(), isInsertGeneratingSession() (+11 more)
 
-### Community 74 - "Nielsen's 10 Usability Heuristics"
-Cohesion: 0.18
-Nodes (11): 10. Help and Documentation, 1. Visibility of System Status, 2. Match Between System and Real World, 3. User Control and Freedom, 4. Consistency and Standards, 5. Error Prevention, 6. Recognition Rather Than Recall, 7. Flexibility and Efficiency of Use (+3 more)
-
-### Community 75 - "UX Heuristics Framework"
-Cohesion: 0.18
-Nodes (11): About the Author, Common Mistakes, Core Principle, Dark Patterns Recognition, Further Reading, Heuristic Conflicts, Quick Diagnostic, Scoring (+3 more)
-
-### Community 76 - "FlowbiteDateRangeComponent"
-Cohesion: 0.38
-Nodes (4): Date range picker, isValidDateRange(), FlowbiteDateRangeComponent, Desde Hasta date range
+### Community 74 - "UX Heuristics Framework"
+Cohesion: 0.07
+Nodes (27): 10. Help and Documentation, 1. Don't Make Me Think, 1. Visibility of System Status, 2. It Doesn't Matter How Many Clicks, 2. Match Between System and Real World, 3. Get Rid of Half the Words, 3. User Control and Freedom, 4. Consistency and Standards (+19 more)
 
 ### Community 77 - "Responsive Design"
 Cohesion: 0.20
@@ -483,9 +476,9 @@ Nodes (10): Breakpoints: Content-Driven, Detect Input Method, Not Just Screen Si
 Cohesion: 0.20
 Nodes (10): Completion gate, Init flow, Step 1: Load current state, Step 2: Explore the project, Step 3: Interview for product truth, Step 4: Write PRODUCT.md, Step 5: Record workflow defaults, Step 6: Wrap up or resume (+2 more)
 
-### Community 80 - "Finanzas personales frontend"
-Cohesion: 0.22
-Nodes (9): Angular 21 standalone, Finanzas personales frontend, Backend GraphQL, graphqlUrl, HttpClient GraphQL client, Light theme only, Tailwind CSS 4 and Flowbite, environment (+1 more)
+### Community 80 - "syncEditBadgeHitProxies"
+Cohesion: 0.31
+Nodes (9): bindEditBadgeProxy(), editBadgeProxyTargets(), initEditBadge(), initEditBadgeHitProxies(), proxyMouseEvent(), setImportantStyle(), styleEditBadgeProxy(), syncEditBadgeHitProxies() (+1 more)
 
 ### Community 81 - "Common Cognitive Load Violations"
 Cohesion: 0.22
@@ -527,9 +520,9 @@ Nodes (7): Extract Flow, Step 1: Discover the Design System, Step 2: Identify Pa
 Cohesion: 0.25
 Nodes (8): Cadence, Confirm and stop, Phase 1: Discovery interview, Phase 2: Resolve the design direction, Phase 3: Write the brief, Round 1: purpose, people, and outcome, Round 2: material, behavior, and boundaries, Shape
 
-### Community 91 - "handleAccept"
-Cohesion: 0.32
-Nodes (8): commitAcceptedVariantToDom(), findAnyVariantsWrapper(), findVariantsWrapper(), handleAccept(), isVariantShown(), pickPopulatedVariantsWrapper(), readVisibleVariantFromDOM(), snapshotAcceptedVariantDom()
+### Community 91 - "Categories of Dark Patterns"
+Cohesion: 0.18
+Nodes (11): 10. Urgency & Scarcity (False), 1. Forced Continuity, 2. Roach Motel, 3. Privacy Zuckering, 4. Bait and Switch, 5. Confirmshaming, 6. Hidden Costs, 7. Misdirection (+3 more)
 
 ### Community 92 - "The Refactoring UI Framework"
 Cohesion: 0.25
@@ -571,33 +564,29 @@ Nodes (5): After approval: the comp becomes a spec, Generate three compositional
 Cohesion: 0.33
 Nodes (6): Buttons, Cards and Surfaces, Component Considerations, Form Inputs, Images and Media, Syntax Highlighting
 
-### Community 102 - "Operable"
-Cohesion: 0.33
-Nodes (6): 2.1 Keyboard Accessible, 2.2 Enough Time, 2.3 Seizures, 2.4 Navigable, 2.5 Input Modalities, Operable
-
-### Community 103 - "LoginComponent"
-Cohesion: 0.40
-Nodes (4): guestGuard, /login route, Login form, LoginComponent
-
 ### Community 104 - "Region map"
 Cohesion: 0.40
 Nodes (4): Containment, Painted material, Region map, What varies independently
 
-### Community 105 - "enterRecoveryWaitingForAnchor"
-Cohesion: 0.50
-Nodes (5): checkpointPayload(), enterRecoveryWaitingForAnchor(), queueCheckpoint(), sendCheckpoint(), waitForVariantAnchorAndRetry()
+### Community 105 - "ensureAgentPollTooltip"
+Cohesion: 0.40
+Nodes (6): agentHasWorkInFlight(), agentStatusText(), ensureAgentPollTooltip(), showAgentPollTooltip(), steerQueuedBehindGeneration(), steerTimeoutMessage()
 
 ### Community 106 - "Theme Toggle UI"
 Cohesion: 0.40
 Nodes (5): Icon Patterns, Persistence, Placement, State Options, Theme Toggle UI
 
-### Community 108 - "Krug's Usability Principles"
-Cohesion: 0.40
-Nodes (5): 1. Don't Make Me Think, 2. It Doesn't Matter How Many Clicks, 3. Get Rid of Half the Words, 4. The Trunk Test, Krug's Usability Principles
+### Community 107 - "Common Animation Patterns"
+Cohesion: 0.33
+Nodes (6): Button States, Common Animation Patterns, Dropdown/Menu, Modal Entrance/Exit, Skeleton Loading, Toast/Notification
 
-### Community 109 - "rxjs"
-Cohesion: 0.70
-Nodes (3): rxjs, runSuperGuard(), superGuard()
+### Community 108 - "Operable"
+Cohesion: 0.33
+Nodes (6): 2.1 Keyboard Accessible, 2.2 Enough Time, 2.3 Seizures, 2.4 Navigable, 2.5 Input Modalities, Operable
+
+### Community 109 - "Performance Guidelines"
+Cohesion: 0.40
+Nodes (5): Batch Animations, GPU-Accelerated Properties, Performance Guidelines, Test on Low-end Devices, Use will-change Sparingly
 
 ### Community 110 - "Heuristics Scoring Guide"
 Cohesion: 0.50
@@ -611,55 +600,83 @@ Nodes (3): Comps, Directions, Operate
 Cohesion: 0.50
 Nodes (3): Comps, Directions, Persuade and Experience
 
-### Community 113 - "Focus Management"
-Cohesion: 0.50
-Nodes (4): Focus Management, Implementation, Roving Tabindex (for component groups), When to Manage Focus
+### Community 113 - "Loading States"
+Cohesion: 0.40
+Nodes (5): Loading States, Progress Bar Guidelines, Skeleton Screen Guidelines, Spinner Guidelines, Types of Loading Indicators
 
 ### Community 114 - "Building a Dark Mode Palette"
 Cohesion: 0.50
 Nodes (4): Building a Dark Mode Palette, Step 1: Define Your Gray Scale, Step 2: Adjust Accent Colors, Step 3: Define Semantic Tokens
 
-### Community 115 - "Summary"
-Cohesion: 0.50
-Nodes (4): Issue Count by Severity, Quick Wins (Low effort, high impact), Summary, Top Issues (Severity 3-4)
+### Community 115 - "Ethical Alternatives That Work"
+Cohesion: 0.40
+Nodes (5): Ethical Alternatives That Work, Instead of Confirmshaming, Instead of False Urgency, Instead of Forced Continuity, Instead of Hidden Costs
 
-### Community 116 - "Understandable"
-Cohesion: 0.50
-Nodes (4): 3.1 Readable, 3.2 Predictable, 3.3 Input Assistance, Understandable
+### Community 116 - "Usability Testing on $0"
+Cohesion: 0.40
+Nodes (5): Common Findings, How Many Users?, Test Protocol, Usability Testing on $0, What to Test
 
-### Community 117 - "Testing Dark Mode"
-Cohesion: 0.67
-Nodes (3): Checklist, Contrast Ratios, Testing Dark Mode
+### Community 118 - "Perceivable"
+Cohesion: 0.40
+Nodes (5): 1.1 Text Alternatives, 1.2 Time-based Media, 1.3 Adaptable, 1.4 Distinguishable, Perceivable
+
+### Community 119 - "Timing & Duration"
+Cohesion: 0.50
+Nodes (4): Duration by Distance, Duration Guidelines, The 200ms Rule, Timing & Duration
+
+### Community 121 - "Microinteractions"
+Cohesion: 0.50
+Nodes (4): Effective Microinteractions, Microinteractions, When Microinteractions Help, When to Skip
+
+### Community 122 - "Implementation Strategies"
+Cohesion: 0.50
+Nodes (4): Implementation Strategies, Strategy 1: CSS Custom Properties, Strategy 2: Data Attribute + Class, Strategy 3: Tailwind Dark Mode
+
+### Community 123 - "The Business Case Against Dark Patterns"
+Cohesion: 0.50
+Nodes (4): Companies That Changed, Real Costs of Dark Patterns, Short-term vs Long-term, The Business Case Against Dark Patterns
+
+### Community 124 - "Navigation Must-Haves"
+Cohesion: 0.50
+Nodes (4): Breadcrumbs, Navigation Must-Haves, The Permanent Navigation, The Trunk Test
+
+### Community 125 - "The Reality of How Users Use the Web"
+Cohesion: 0.50
+Nodes (4): Fact 1: We Don't Read, We Scan, Fact 2: We Don't Make Optimal Choices, We Satisfice, Fact 3: We Don't Figure Out How Things Work, We Muddle Through, The Reality of How Users Use the Web
+
+### Community 126 - "Homepage Guidelines"
+Cohesion: 0.50
+Nodes (4): Homepage Guidelines, Homepage Priorities, Tagline Guidelines, The Big Bang Theory of Web Design
 
 ## Ambiguous Edges - Review These
 - `Dashboard movements view` → `Movements nav link`  [AMBIGUOUS]
   src/app/features/dashboard/dashboard.component.html · relation: conceptually_related_to
-- `Movements model and service` → `Movements nav link`  [AMBIGUOUS]
+- `Movements nav link` → `Movements model and service`  [AMBIGUOUS]
   src/app/layout/app-sidebar/app-sidebar.component.html · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **16 isolated node(s):** `@angular/compiler`, `ng-primitives`, `tslib`, `@angular/build`, `@angular/cli` (+11 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 914 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **15 isolated node(s):** `@angular/compiler`, `tslib`, `@angular/build`, `@angular/cli`, `@angular/compiler-cli` (+10 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 920 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **3 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `init()` connect `initGlobalBar` to `impeccable/SKILL.md`, `connectSSE`, `showToast`, `syncPageChatFocus`, `live-browser.js`, `Init flow`, `resumeSession`, `setLiveState`, `captureElementToBlob`, `doctor.md`, `live.md`?**
-  _High betweenness centrality (0.250) - this node is a cross-community bridge._
-- **Are the 7 inferred relationships involving `initGlobalBar()` (e.g. with `hideAgentPollTooltip()` and `onDetectMessage()`) actually correct?**
-  _`initGlobalBar()` has 7 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `@angular/compiler`, `ng-primitives`, `tslib` to the rest of the system?**
-  _16 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `App bootstrap and guards` be split into smaller, more focused modules?**
-  _Cohesion score 0.11605937921727395 - nodes in this community are weakly interconnected._
-- **Why does `TokenStore` connect `App bootstrap and guards` to `critique.md`, `graphql.client.ts`, `Auth GraphQL session`, `Shell navigation and auth`?**
-  _High betweenness centrality (0.179) - this node is a cross-community bridge._
+- **Why does `init()` connect `initGlobalBar` to `impeccable/SKILL.md`, `connectSSE`, `onAnnotDown`, `resumeSession`, `renderDesignVisual`, `Init flow`, `setLiveState`, `syncEditBadgeHitProxies`, `initPageChat`, `actOnAgentTarget`, `doctor.md`, `live.md`, `live-browser.js`?**
+  _High betweenness centrality (0.263) - this node is a cross-community bridge._
+- **What connects `@angular/compiler`, `tslib`, `@angular/build` to the rest of the system?**
+  _15 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `app.routes.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.1268939393939394 - nodes in this community are weakly interconnected._
+- **Why does `TokenStore` connect `app.routes.ts` to `critique.md`, `graphql.client.ts`, `Auth GraphQL session`, `Shell navigation and auth`?**
+  _High betweenness centrality (0.194) - this node is a cross-community bridge._
+- **Should `movements.component.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.13405797101449277 - nodes in this community are weakly interconnected._
 
 ### Low-confidence Hints
 _AMBIGUOUS edges — the extractor was unsure. Verify before acting on these._
 
 - **What is the exact relationship between `Dashboard movements view` and `Movements nav link`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
-- **What is the exact relationship between `Movements model and service` and `Movements nav link`?**
+- **What is the exact relationship between `Movements nav link` and `Movements model and service`?**
   _Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low._
