@@ -4,7 +4,7 @@ import { Observable, map } from 'rxjs';
 import { GraphqlClient } from '../../core/graphql/graphql.client';
 import { CreateMovementInput, Movement, MovementFilter } from './movement.model';
 import {
-  MovementsGqlResponse, MOVEMENT_QUERY_FILTERED,
+  MovementsGqlResponse, movementsFilteredQuery,
   MovementGqlResponse, MOVEMENT_QUERY,
   CreateMovementGqlResponse, CREATE_MOVEMENT_MUTATION,
   UpdateMovementGqlResponse, UPDATE_MOVEMENT_MUTATION,
@@ -20,8 +20,10 @@ export class MovementsService {
   /**
    * Find movements matching the given filter.
    * Empty type and category are omitted so the API does not exact-match them.
+   * `includeItems` loads the breakdown. The movements page asks for it.
+   * The dashboard does not.
    */
-  findAll(filter: MovementFilter): Observable<Movement[]> {
+  findAll(filter: MovementFilter, includeItems = false): Observable<Movement[]> {
     const queryFilter: MovementFilter = {};
     if (filter.fromDate) {
       queryFilter.fromDate = filter.fromDate;
@@ -38,7 +40,7 @@ export class MovementsService {
     }
 
     return this.graphql
-      .query<MovementsGqlResponse>(MOVEMENT_QUERY_FILTERED, {
+      .query<MovementsGqlResponse>(movementsFilteredQuery(includeItems), {
         filter: queryFilter,
       })
       .pipe(map((data) => data.movements as Movement[]));
