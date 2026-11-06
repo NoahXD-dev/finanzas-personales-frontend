@@ -42,7 +42,10 @@ export class DashboardComponent {
   protected readonly movementsResource = rxResource({
     params: () => this.dateRange(),
     stream: ({ params }) =>
-      this.movementsService.findAll(params.from, params.to),
+      this.movementsService.findAll({
+        fromDate: params.from,
+        toDate: params.to,
+      }),
     defaultValue: [] as Movement[],
   });
 

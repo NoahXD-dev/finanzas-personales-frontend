@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -20,10 +20,16 @@ import { map } from 'rxjs';
 import { GraphqlClientError } from '../../core/graphql/graphql.error';
 import { DataTableColumn } from '../../shared/data-table/data-table-column.model';
 import { DataTableComponent } from '../../shared/data-table/data-table.component';
-import { getCurrentMonthRange, toIsoDateLocal } from '../../shared/date/date-range';
+import {
+  DateRange,
+  getCurrentMonthRange,
+  isValidDateRange,
+  toIsoDateLocal,
+} from '../../shared/date/date-range';
 import { FlowbiteDateComponent } from '../../shared/date/flowbite-date.component';
+import { FlowbiteDateRangeComponent } from '../../shared/date/flowbite-date-range.component';
 import { formatIsoDate } from '../../shared/date/format-iso-date';
-import { Movement, MovementType } from './movement.model';
+import { Movement, MovementFilter, MovementType } from './movement.model';
 import { MovementsService } from './movements.service';
 
 interface DialogClose {
@@ -46,13 +52,14 @@ interface DialogClose {
     NgpDialogTrigger,
     DataTableComponent,
     FlowbiteDateComponent,
+    FlowbiteDateRangeComponent,
   ],
   templateUrl: './movements.component.html',
 })
 export class MovementsComponent {
   private readonly fb = inject(FormBuilder);
   private readonly movementsService = inject(MovementsService);
-  private readonly monthRange = getCurrentMonthRange();
+  private readonly initialRange = getCurrentMonthRange();
   private readonly listVersion = signal(0);
 
   private readonly currencyFormatter = new Intl.NumberFormat('es-MX', {
@@ -60,20 +67,42 @@ export class MovementsComponent {
     currency: 'MXN',
   });
 
-  private readonly monthFormatter = new Intl.DateTimeFormat('es-MX', {
-    month: 'long',
-    year: 'numeric',
+  protected readonly fromDate = signal(this.initialRange.from);
+  protected readonly toDate = signal(this.initialRange.to);
+  protected readonly dateRange = signal<DateRange>(this.initialRange);
+  protected readonly typeFilter = signal<'' | MovementType>('');
+  protected readonly categoryFilter = signal('');
+
+  protected readonly dateRangeInvalid = computed(
+    () => !isValidDateRange(this.fromDate(), this.toDate()),
+  );
+
+  protected readonly periodLabel = computed(() => {
+    const range = this.dateRange();
+    return `${formatIsoDate(range.from)} – ${formatIsoDate(range.to)}`;
   });
 
-  protected readonly monthLabel = this.capitalize(
-    this.monthFormatter.format(
-      new Date(
-        Number(this.monthRange.from.slice(0, 4)),
-        Number(this.monthRange.from.slice(5, 7)) - 1,
-        1,
-      ),
-    ),
-  );
+  protected readonly filtersDirty = computed(() => {
+    const range = this.dateRange();
+    return (
+      range.from !== this.initialRange.from ||
+      range.to !== this.initialRange.to ||
+      this.typeFilter() !== '' ||
+      this.categoryFilter() !== ''
+    );
+  });
+
+  private readonly listFilter = computed((): MovementFilter => {
+    const range = this.dateRange();
+    const type = this.typeFilter();
+    const category = this.categoryFilter().trim();
+    return {
+      fromDate: range.from,
+      toDate: range.to,
+      ...(type ? { type } : {}),
+      ...(category ? { category } : {}),
+    };
+  });
 
   protected readonly submitting = signal(false);
   protected readonly errorMessage = signal<string | null>(null);
@@ -96,13 +125,62 @@ export class MovementsComponent {
   });
 
   protected readonly movementsResource = rxResource({
-    params: () => this.listVersion(),
-    stream: () =>
-      this.movementsService.findAll(this.monthRange.from, this.monthRange.to).pipe(
+    params: () => ({
+      filter: this.listFilter(),
+      version: this.listVersion(),
+    }),
+    stream: ({ params }) =>
+      this.movementsService.findAll(params.filter).pipe(
         map((rows) => [...rows].sort((a, b) => b.date.localeCompare(a.date))),
       ),
     defaultValue: [] as Movement[],
   });
+
+  protected readonly categoriesResource = rxResource({
+    params: () => ({
+      from: this.dateRange().from,
+      to: this.dateRange().to,
+      version: this.listVersion(),
+    }),
+    stream: ({ params }) =>
+      this.movementsService.getMovementsByCategory(params.from, params.to),
+    defaultValue: [] as {
+      category: string;
+      totalIncome: number;
+      totalExpense: number;
+    }[],
+  });
+
+  protected readonly categoryOptions = computed(() => {
+    const names = this.categoriesResource
+      .value()
+      .map((item) => item.category.trim())
+      .filter((category) => category.length > 0);
+    return [...new Set(names)].sort((a, b) => a.localeCompare(b, 'es'));
+  });
+
+  protected readonly emptyMessage = computed(() => {
+    if (this.typeFilter() || this.categoryFilter()) {
+      return 'No hay movimientos con estos filtros.';
+    }
+    return 'No hay movimientos en este periodo.';
+  });
+
+  constructor() {
+    effect(() => {
+      const selected = this.categoryFilter();
+      if (
+        !selected ||
+        this.categoriesResource.isLoading() ||
+        this.categoriesResource.error()
+      ) {
+        return;
+      }
+      if (!this.categoryOptions().includes(selected)) {
+        this.categoryFilter.set('');
+      }
+    });
+  }
 
   protected readonly columns: DataTableColumn[] = [
     { header: 'Descripción', key: 'description' },
@@ -124,11 +202,33 @@ export class MovementsComponent {
     },
   ];
 
-  private capitalize(value: string): string {
-    if (value.length === 0) {
-      return value;
+  protected onDateRangeChange(range: DateRange): void {
+    this.fromDate.set(range.from);
+    this.toDate.set(range.to);
+    if (isValidDateRange(range.from, range.to)) {
+      this.dateRange.set(range);
     }
-    return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+
+  protected onTypeFilterChange(event: Event): void {
+    const value = (event.target as HTMLSelectElement).value;
+    if (value === 'income' || value === 'expense') {
+      this.typeFilter.set(value);
+      return;
+    }
+    this.typeFilter.set('');
+  }
+
+  protected onCategoryFilterChange(event: Event): void {
+    this.categoryFilter.set((event.target as HTMLSelectElement).value);
+  }
+
+  protected resetFilters(): void {
+    this.fromDate.set(this.initialRange.from);
+    this.toDate.set(this.initialRange.to);
+    this.dateRange.set({ ...this.initialRange });
+    this.typeFilter.set('');
+    this.categoryFilter.set('');
   }
 
   protected typeLabel(type: string): string {

@@ -2,7 +2,7 @@
   <header class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
     <div>
       <h1 class="text-2xl font-semibold text-heading">Movimientos</h1>
-      <p class="mt-1 text-sm text-body">{{ monthLabel }}</p>
+      <p class="mt-1 text-sm text-body">{{ periodLabel() }}</p>
     </div>
     <button
       flowbiteButton
@@ -16,6 +16,80 @@
     </button>
   </header>
 
+  <section class="mb-6" aria-label="Filtros">
+    <div class="flex flex-wrap items-end gap-4">
+      <app-flowbite-date-range
+        [from]="fromDate()"
+        [to]="toDate()"
+        (rangeChange)="onDateRangeChange($event)"
+      />
+
+      <div>
+        <label
+          for="movement-filter-type"
+          class="mb-1 block text-sm font-medium text-heading"
+        >
+          Tipo
+        </label>
+        <select
+          id="movement-filter-type"
+          class="block w-full min-w-40 rounded-base border border-default bg-neutral-primary-soft px-3 py-2 text-sm text-body focus:border-brand focus:ring-brand"
+          [value]="typeFilter()"
+          (change)="onTypeFilterChange($event)"
+        >
+          <option value="">Todos</option>
+          <option value="income">Ingreso</option>
+          <option value="expense">Gasto</option>
+        </select>
+      </div>
+
+      <div>
+        <label
+          for="movement-filter-category"
+          class="mb-1 block text-sm font-medium text-heading"
+        >
+          Categoría
+        </label>
+        <select
+          id="movement-filter-category"
+          class="block w-full min-w-40 rounded-base border border-default bg-neutral-primary-soft px-3 py-2 text-sm text-body focus:border-brand focus:ring-brand disabled:cursor-not-allowed disabled:opacity-60"
+          [value]="categoryFilter()"
+          [disabled]="categoriesResource.isLoading()"
+          (change)="onCategoryFilterChange($event)"
+        >
+          <option value="">Todas</option>
+          @for (category of categoryOptions(); track category) {
+            <option [value]="category">{{ category }}</option>
+          }
+        </select>
+      </div>
+
+      @if (filtersDirty()) {
+        <button
+          flowbiteButton
+          type="button"
+          color="default"
+          outline
+          (click)="resetFilters()"
+        >
+          Limpiar
+        </button>
+      }
+    </div>
+
+    @if (dateRangeInvalid()) {
+      <p class="mt-2 text-sm text-danger" role="alert">
+        La fecha inicial no puede ser posterior a la final.
+      </p>
+    }
+
+    @if (categoriesResource.error(); as categoryError) {
+      <p class="mt-2 text-sm text-danger" role="alert">
+        No se pudieron cargar las categorías: {{ categoryError.message }}
+      </p>
+    }
+  </section>
+
   @if (movementsResource.error(); as loadError) {
     <div
       class="mb-4 rounded-base border border-default bg-neutral-primary-soft px-4 py-3 text-sm text-body"
@@ -28,7 +102,7 @@
       [columns]="columns"
       [data]="movementsResource.value()"
       [loading]="movementsResource.isLoading()"
-      emptyMessage="No hay movimientos en este mes."
+      [emptyMessage]="emptyMessage()"
     />
   }
 
@@ -113,7 +187,7 @@
               <label flowbiteLabel for="movement-date">Fecha</label>
               <app-flowbite-date inputId="movement-date" formControlName="date" />
               <p class="mt-1 text-sm text-body">
-                El listado muestra solo el mes en curso.
+                Si la fecha queda fuera del periodo filtrado, el movimiento no aparece en el listado.
               </p>
               @if (form.controls.date.touched && form.controls.date.invalid) {
                 <p class="mt-1 text-sm text-danger" role="alert">
