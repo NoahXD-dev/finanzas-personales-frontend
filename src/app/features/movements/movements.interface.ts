@@ -1,31 +1,48 @@
 import { Movement } from './movement.model';
 
+const MOVEMENT_CORE_FIELDS = `
+            id
+            description
+            amount
+            type
+            category
+            date
+`;
+
+const MOVEMENT_ITEM_FIELDS = `
+            items {
+                id
+                name
+                price
+                subcategory
+                position
+            }
+`;
+
+export function movementFields(includeItems: boolean): string {
+    return includeItems
+        ? `${MOVEMENT_CORE_FIELDS}${MOVEMENT_ITEM_FIELDS}`
+        : MOVEMENT_CORE_FIELDS;
+}
+
 /* FIND */
 export const MOVEMENTS_QUERY = `
     query Movements {
         movements {
-            id
-            description
-            amount
-            type
-            category
-            date
+            ${movementFields(true)}
         }
     }
 `;
 
-export const MOVEMENT_QUERY_FILTERED = `
+export function movementsFilteredQuery(includeItems: boolean): string {
+    return `
     query ($filter: MovementFilterInput!) {
         movements(filter: $filter) {
-            id
-            description
-            amount
-            type
-            category
-            date
+            ${movementFields(includeItems)}
         }
     }
 `;
+}
 
 export interface MovementsGqlResponse {
     movements: Movement[];
@@ -34,12 +51,7 @@ export interface MovementsGqlResponse {
 export const MOVEMENT_QUERY = `
     query($id: Int!) {
         movement(id: $id) {
-            id
-            description
-            amount
-            type
-            category
-            date
+            ${movementFields(true)}
         }
     }
 `;
@@ -52,12 +64,7 @@ export interface MovementGqlResponse {
 export const CREATE_MOVEMENT_MUTATION = `
     mutation ($input: CreateMovementInput!) {
         createMovement(input: $input) {
-            id
-            description
-            amount
-            type
-            category
-            date
+            ${movementFields(true)}
         }
     }
 `;
@@ -70,12 +77,7 @@ export interface CreateMovementGqlResponse {
 export const UPDATE_MOVEMENT_MUTATION = `
     mutation($id: Int!, $input: UpdateMovementInput!) {
         updateMovement(id: $id, input: $input) {
-            id
-            description
-            amount
-            type
-            category
-            date
+            ${movementFields(true)}
         }
     }
 `;

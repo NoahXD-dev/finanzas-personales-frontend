@@ -28,7 +28,10 @@
       <ng-template #bodyTpl let-row>
         <tr flowbiteTableBody>
           @for (column of columns(); track column.key) {
-            <td class="px-4 py-3 text-body">
+            <td
+              class="px-4 py-3 text-body"
+              [class.whitespace-pre-line]="column.preserveLines"
+            >
               {{ cellValue(row, column) }}
             </td>
           }

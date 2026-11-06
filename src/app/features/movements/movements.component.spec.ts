@@ -37,7 +37,7 @@ describe('MovementsComponent', () => {
     expect(findAll).toHaveBeenCalledWith({
       fromDate: range.from,
       toDate: range.to,
-    });
+    }, true);
     expect(compiled.textContent).toContain('Nuevo movimiento');
     expect(compiled.textContent).toContain('No hay movimientos en este periodo.');
   });
@@ -72,7 +72,7 @@ describe('MovementsComponent', () => {
       toDate: range.to,
       type: 'expense',
       category: 'Comida',
-    });
+    }, true);
     expect(fixture.nativeElement.textContent).toContain('Limpiar');
 
     const clear = [...fixture.nativeElement.querySelectorAll('button')].find(
@@ -85,7 +85,7 @@ describe('MovementsComponent', () => {
     expect(findAll).toHaveBeenLastCalledWith({
       fromDate: range.from,
       toDate: range.to,
-    });
+    }, true);
     expect(fixture.nativeElement.textContent).not.toContain('Limpiar');
   });
 
@@ -117,6 +117,7 @@ describe('MovementsComponent', () => {
       type: 'expense',
       category: ' Comida ',
       date: '2026-10-30',
+      items: [],
     });
     const close = vi.fn();
     fixture.componentInstance.onSubmit({ close });
@@ -128,5 +129,79 @@ describe('MovementsComponent', () => {
       date: '2026-10-30',
     });
     expect(close).toHaveBeenCalled();
+  });
+
+  it('sends the item breakdown and trims each field', async () => {
+    create.mockReturnValue(
+      of({
+        id: '1',
+        description: 'Super',
+        amount: 40,
+        type: 'expense',
+        category: 'Comida',
+        date: '2026-11-06',
+        items: [],
+      }),
+    );
+    const fixture = TestBed.createComponent(MovementsComponent);
+    await fixture.whenStable();
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    component.addItem();
+    component.addItem();
+    component.form.controls.items.at(0).setValue({
+      name: '  Leche ',
+      subcategory: ' Lácteos ',
+      price: 25,
+    });
+    component.form.controls.items.at(1).setValue({
+      name: 'Pan',
+      subcategory: 'Panadería',
+      price: 10,
+    });
+    component.form.patchValue({
+      description: 'Super',
+      amount: 40,
+      type: 'expense',
+      category: 'Comida',
+      date: '2026-11-06',
+    });
+    const close = vi.fn();
+    component.onSubmit({ close });
+    expect(create).toHaveBeenCalledWith({
+      description: 'Super',
+      amount: 40,
+      type: 'expense',
+      category: 'Comida',
+      date: '2026-11-06',
+      items: [
+        { name: 'Leche', price: 25, subcategory: 'Lácteos' },
+        { name: 'Pan', price: 10, subcategory: 'Panadería' },
+      ],
+    });
+    expect(close).toHaveBeenCalled();
+  });
+
+  it('does not create when item prices exceed the amount', async () => {
+    const fixture = TestBed.createComponent(MovementsComponent);
+    await fixture.whenStable();
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    component.addItem();
+    component.form.controls.items.at(0).setValue({
+      name: 'Leche',
+      subcategory: 'Lácteos',
+      price: 50,
+    });
+    component.form.patchValue({
+      description: 'Super',
+      amount: 40,
+      type: 'expense',
+      category: 'Comida',
+      date: '2026-11-06',
+    });
+    component.onSubmit({ close: vi.fn() });
+    expect(create).not.toHaveBeenCalled();
+    expect(component.form.hasError('itemsExceedAmount')).toBe(true);
   });
 });

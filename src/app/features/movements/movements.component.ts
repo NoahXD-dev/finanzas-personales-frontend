@@ -1,7 +1,12 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import {
+  AbstractControl,
+  FormArray,
   FormBuilder,
+  FormControl as NgFormControl,
+  FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { rxResource } from '@angular/core/rxjs-interop';
@@ -34,6 +39,62 @@ import { MovementsService } from './movements.service';
 
 interface DialogClose {
   close: () => void;
+}
+
+interface ItemForm {
+  name: NgFormControl<string>;
+  subcategory: NgFormControl<string>;
+  price: NgFormControl<number | null>;
+}
+
+function toCents(value: unknown): number | undefined {
+  if (typeof value !== 'number' || !Number.isFinite(value)) {
+    return undefined;
+  }
+  return Math.round(value * 100);
+}
+
+function itemsWithinAmount(control: AbstractControl): ValidationErrors | null {
+  const amountCents = toCents(control.get('amount')?.value);
+  const items = control.get('items');
+  if (
+    amountCents === undefined ||
+    !(items instanceof FormArray) ||
+    items.length === 0
+  ) {
+    return null;
+  }
+  let total = 0;
+  for (const group of items.controls) {
+    const cents = toCents(group.get('price')?.value);
+    if (cents === undefined || cents <= 0) {
+      return null;
+    }
+    total += cents;
+  }
+  return total > amountCents ? { itemsExceedAmount: true } : null;
+}
+
+function movementErrorMessage(message: string): string {
+  if (message.includes('Item total exceeds movement amount')) {
+    return 'La suma de los ítems supera el monto.';
+  }
+  if (message.includes('Item price must be greater than zero')) {
+    return 'El precio de cada ítem debe ser mayor que cero.';
+  }
+  if (message.includes('Item name is required')) {
+    return 'El nombre del ítem es obligatorio.';
+  }
+  if (message.includes('Item name is too long')) {
+    return 'El nombre del ítem admite hasta 200 caracteres.';
+  }
+  if (message.includes('Item subcategory is required')) {
+    return 'La subcategoría es obligatoria.';
+  }
+  if (message.includes('Item subcategory is too long')) {
+    return 'La subcategoría admite hasta 200 caracteres.';
+  }
+  return message;
 }
 
 @Component({
@@ -122,7 +183,8 @@ export class MovementsComponent {
       Validators.pattern(/\S/),
     ]),
     date: this.fb.nonNullable.control(toIsoDateLocal(new Date()), Validators.required),
-  });
+    items: this.fb.array<FormGroup<ItemForm>>([]),
+  }, { validators: itemsWithinAmount });
 
   protected readonly movementsResource = rxResource({
     params: () => ({
@@ -130,7 +192,7 @@ export class MovementsComponent {
       version: this.listVersion(),
     }),
     stream: ({ params }) =>
-      this.movementsService.findAll(params.filter).pipe(
+      this.movementsService.findAll(params.filter, true).pipe(
         map((rows) => [...rows].sort((a, b) => b.date.localeCompare(a.date))),
       ),
     defaultValue: [] as Movement[],
@@ -196,6 +258,12 @@ export class MovementsComponent {
     },
     { header: 'Categoría', key: 'category' },
     {
+      header: 'Desglose',
+      key: 'items',
+      preserveLines: true,
+      format: (_value, row) => this.formatItems(row as Movement),
+    },
+    {
       header: 'Fecha',
       key: 'date',
       format: (value) => formatIsoDate(value),
@@ -249,9 +317,15 @@ export class MovementsComponent {
     }
 
     const raw = this.form.getRawValue();
-    if (raw.amount === null) {
+    if (raw.amount === null || raw.items.some((item) => item.price === null)) {
       return;
     }
+
+    const items = raw.items.map((item) => ({
+      name: item.name.trim(),
+      price: item.price as number,
+      subcategory: item.subcategory.trim(),
+    }));
 
     this.submitting.set(true);
     this.movementsService
@@ -261,6 +335,7 @@ export class MovementsComponent {
         type: raw.type,
         category: raw.category.trim(),
         date: raw.date,
+        ...(items.length > 0 ? { items } : {}),
       })
       .subscribe({
         next: () => {
@@ -272,7 +347,7 @@ export class MovementsComponent {
         error: (error: unknown) => {
           this.submitting.set(false);
           if (error instanceof GraphqlClientError) {
-            this.errorMessage.set(error.message);
+            this.errorMessage.set(movementErrorMessage(error.message));
             return;
           }
           this.errorMessage.set(
@@ -282,8 +357,41 @@ export class MovementsComponent {
       });
   }
 
+  addItem(): void {
+    this.form.controls.items.push(this.createItemGroup());
+  }
+
+  protected removeItem(index: number): void {
+    this.form.controls.items.removeAt(index);
+  }
+
+  protected unallocatedAmount(): number | null {
+    if (this.form.hasError('itemsExceedAmount')) {
+      return null;
+    }
+    const amountCents = toCents(this.form.controls.amount.value);
+    const items = this.form.controls.items;
+    if (amountCents === undefined || items.length === 0) {
+      return null;
+    }
+    let total = 0;
+    for (const group of items.controls) {
+      const cents = toCents(group.controls.price.value);
+      if (cents === undefined || cents <= 0) {
+        return null;
+      }
+      total += cents;
+    }
+    return (amountCents - total) / 100;
+  }
+
+  protected formatCurrency(amount: number): string {
+    return this.currencyFormatter.format(amount);
+  }
+
   protected resetForm(): void {
     this.errorMessage.set(null);
+    this.form.controls.items.clear();
     this.form.reset({
       description: '',
       amount: null,
@@ -291,6 +399,49 @@ export class MovementsComponent {
       category: '',
       date: toIsoDateLocal(new Date()),
     });
+  }
+
+  private createItemGroup(): FormGroup<ItemForm> {
+    return this.fb.group({
+      name: this.fb.nonNullable.control('', [
+        Validators.required,
+        Validators.pattern(/\S/),
+        Validators.maxLength(200),
+      ]),
+      subcategory: this.fb.nonNullable.control('', [
+        Validators.required,
+        Validators.pattern(/\S/),
+        Validators.maxLength(200),
+      ]),
+      price: this.fb.control<number | null>(null, [
+        Validators.required,
+        Validators.min(0.01),
+      ]),
+    });
+  }
+
+  private formatItems(movement: Movement): string {
+    const items = [...(movement.items ?? [])].sort(
+      (a, b) => a.position - b.position,
+    );
+    if (items.length === 0) {
+      return '—';
+    }
+    const lines = items.map(
+      (item) =>
+        `${item.name} · ${item.subcategory} · ${this.currencyFormatter.format(item.price)}`,
+    );
+    const totalCents = items.reduce(
+      (sum, item) => sum + (toCents(item.price) ?? 0),
+      0,
+    );
+    const amountCents = toCents(movement.amount);
+    if (amountCents !== undefined && amountCents > totalCents) {
+      lines.push(
+        `Sin desglose ${this.currencyFormatter.format((amountCents - totalCents) / 100)}`,
+      );
+    }
+    return lines.join('\n');
   }
 
   private formatAmount(amount: number, movement: Movement): string {
