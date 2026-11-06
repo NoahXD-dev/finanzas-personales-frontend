@@ -24,8 +24,8 @@
     "semantic_hash": "eb917dbbe7d9391e7170bc3f9b6fd8c3"
   },
   "src/app/app.routes.ts": {
-    "mtime": 1793395873.2806969,
-    "seen": 1793396808.425746,
+    "mtime": 1793399533.9459412,
+    "seen": 1793579493.3012118,
     "ast_hash": "7ceadc5a74822466cf827c828c9bcb15",
     "semantic_hash": ""
   },
@@ -138,15 +138,15 @@
     "semantic_hash": ""
   },
   "src/app/features/dashboard/dashboard.component.ts": {
-    "mtime": 1790375314.3702896,
-    "seen": 1793240433.2639759,
-    "ast_hash": "a76104861d8c50320dc46cd21d68fbb2",
-    "semantic_hash": "a76104861d8c50320dc46cd21d68fbb2"
+    "mtime": 1793579374.7136104,
+    "seen": 1793579493.303383,
+    "ast_hash": "5ef439bf2b93a00ce7b5139150b3d0e9",
+    "semantic_hash": ""
   },
   "src/app/features/movements/movement.model.ts": {
-    "mtime": 1793395662.1547725,
-    "seen": 1793395838.963867,
-    "ast_hash": "6289257f4e52c41378c08589ac2d75d4",
+    "mtime": 1793579371.0820208,
+    "seen": 1793579493.303387,
+    "ast_hash": "c0ddffe3cc6448e629e9b3f44985d526",
     "semantic_hash": ""
   },
   "src/app/features/movements/movements.interface.ts": {
@@ -156,9 +156,9 @@
     "semantic_hash": "8ac388e99123481b4a7fd371b9ef29e1"
   },
   "src/app/features/movements/movements.service.ts": {
-    "mtime": 1793395663.8078094,
-    "seen": 1793395838.96399,
-    "ast_hash": "d33c611c54dbe695ace396700588693a",
+    "mtime": 1793579374.0392683,
+    "seen": 1793579493.303513,
+    "ast_hash": "a8af8944f7241f21f861561d2c38e110",
     "semantic_hash": ""
   },
   "src/app/features/users/user.model.ts": {
@@ -306,8 +306,8 @@
     "semantic_hash": "91ec09aaf52e99fd9a72eacc248f5b8e"
   },
   "README.md": {
-    "mtime": 1793395709.134382,
-    "seen": 1793395838.973496,
+    "mtime": 1793399533.9121761,
+    "seen": 1793579493.314069,
     "ast_hash": "4326e5df4051825d1d9d5c2a510cde97",
     "semantic_hash": ""
   },
@@ -354,8 +354,8 @@
     "semantic_hash": "7dafdd2147039f5ea293d786841c91c6"
   },
   "src/app/shared/data-table/data-table.component.html": {
-    "mtime": 1793395664.6907578,
-    "seen": 1793395838.974256,
+    "mtime": 1793399533.951888,
+    "seen": 1793579493.315339,
     "ast_hash": "f463082d08b95eb81f1af14e8796d0a7",
     "semantic_hash": ""
   },
@@ -846,8 +846,8 @@
     "semantic_hash": ""
   },
   "PRODUCT.md": {
-    "mtime": 1793395710.7207398,
-    "seen": 1793395838.973492,
+    "mtime": 1793399533.911415,
+    "seen": 1793579493.3140638,
     "ast_hash": "2042a6c5d0f5612af5309802b00ebfc5",
     "semantic_hash": ""
   },
@@ -858,32 +858,32 @@
     "semantic_hash": ""
   },
   "src/app/features/movements/movements.component.spec.ts": {
-    "mtime": 1793395707.3876622,
-    "seen": 1793395838.963871,
-    "ast_hash": "edfb01a97e3324f7d40798c95fdd06a6",
+    "mtime": 1793579451.0595367,
+    "seen": 1793579493.30339,
+    "ast_hash": "d5c58bb4c81cc2750a266a2458f39d3a",
     "semantic_hash": ""
   },
   "src/app/features/movements/movements.component.ts": {
-    "mtime": 1793396576.5796018,
-    "seen": 1793396808.428231,
-    "ast_hash": "787324ebe7d8408c52ed15096c55d662",
+    "mtime": 1793579389.867216,
+    "seen": 1793579493.303394,
+    "ast_hash": "925d41e46b1dea56a4f7d930d176fac0",
     "semantic_hash": ""
   },
   "src/app/features/movements/movements.component.html": {
-    "mtime": 1793396577.5017996,
-    "seen": 1793396808.438995,
-    "ast_hash": "d138259c7d06ab946abf0d1f0992bdfa",
+    "mtime": 1793579399.4777188,
+    "seen": 1793579493.314858,
+    "ast_hash": "8fd087a3c4025b3819d5b1d7090d5b9e",
     "semantic_hash": ""
   },
   "src/app/shared/date/flowbite-date.component.ts": {
-    "mtime": 1793398211.4473891,
-    "seen": 1793398294.558932,
+    "mtime": 1793399533.9537146,
+    "seen": 1793579493.305061,
     "ast_hash": "dbd9fc37921735ab1b7e8cfd1d168966",
     "semantic_hash": ""
   },
   "src/app/shared/date/flowbite-date.component.html": {
-    "mtime": 1793397979.0536425,
-    "seen": 1793398294.5682921,
+    "mtime": 1793399533.9526937,
+    "seen": 1793579493.315454,
     "ast_hash": "e963ff364e71b45fe6cbbb75fb8eed1a",
     "semantic_hash": ""
   }
