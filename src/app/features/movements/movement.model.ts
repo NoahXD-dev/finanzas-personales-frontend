@@ -16,3 +16,10 @@ export interface CreateMovementInput {
   category: string;
   date: string;
 }
+
+export interface MovementFilter {
+  fromDate?: string;
+  toDate?: string;
+  type?: MovementType;
+  category?: string;
+}

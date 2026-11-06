@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 
 import { GraphqlClient } from '../../core/graphql/graphql.client';
-import { CreateMovementInput, Movement } from './movement.model';
+import { CreateMovementInput, Movement, MovementFilter } from './movement.model';
 import {
   MovementsGqlResponse, MOVEMENT_QUERY_FILTERED,
   MovementGqlResponse, MOVEMENT_QUERY,
@@ -18,15 +18,28 @@ export class MovementsService {
   private readonly graphql = inject(GraphqlClient);
 
   /**
-   * Find movements in a date range (inclusive).
-   * @param from - The start date
-   * @param to - The end date
-   * @returns Observable<Movement[]>
+   * Find movements matching the given filter.
+   * Empty type and category are omitted so the API does not exact-match them.
    */
-  findAll(from: string, to: string): Observable<Movement[]> {
+  findAll(filter: MovementFilter): Observable<Movement[]> {
+    const queryFilter: MovementFilter = {};
+    if (filter.fromDate) {
+      queryFilter.fromDate = filter.fromDate;
+    }
+    if (filter.toDate) {
+      queryFilter.toDate = filter.toDate;
+    }
+    if (filter.type) {
+      queryFilter.type = filter.type;
+    }
+    const category = filter.category?.trim();
+    if (category) {
+      queryFilter.category = category;
+    }
+
     return this.graphql
       .query<MovementsGqlResponse>(MOVEMENT_QUERY_FILTERED, {
-        filter: { fromDate: from, toDate: to },
+        filter: queryFilter,
       })
       .pipe(map((data) => data.movements as Movement[]));
   }
