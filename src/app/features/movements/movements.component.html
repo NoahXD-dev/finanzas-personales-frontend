@@ -108,7 +108,12 @@
 
   <ng-template #createModal let-dialog>
     <div flowbiteModalOverlay>
-      <div flowbiteModal role="dialog" modal>
+      <div
+        flowbiteModal
+        role="dialog"
+        modal
+        [customTheme]="{ host: { size: { md: 'max-w-2xl' } } }"
+      >
         <h2 flowbiteModalHeader>Nuevo movimiento</h2>
         <form [formGroup]="form" (ngSubmit)="onSubmit(dialog)">
           <div flowbiteModalContent class="max-h-[70vh] overflow-y-auto">

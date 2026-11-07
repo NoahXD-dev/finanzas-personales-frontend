@@ -144,20 +144,20 @@
     "semantic_hash": ""
   },
   "src/app/features/movements/movement.model.ts": {
-    "mtime": 1794006719.3432925,
-    "seen": 1794006900.7315981,
+    "mtime": 1794007406.6234508,
+    "seen": 1794016084.118934,
     "ast_hash": "8e475812d9b3abeeb73d2d50a8a04899",
     "semantic_hash": ""
   },
   "src/app/features/movements/movements.interface.ts": {
-    "mtime": 1794006730.149824,
-    "seen": 1794006900.7316139,
+    "mtime": 1794007406.626299,
+    "seen": 1794016084.1189508,
     "ast_hash": "a17276611ae8f3361d6915ebc6859349",
     "semantic_hash": ""
   },
   "src/app/features/movements/movements.service.ts": {
-    "mtime": 1794006737.6955862,
-    "seen": 1794006900.7316182,
+    "mtime": 1794007406.626954,
+    "seen": 1794016084.118956,
     "ast_hash": "146bed7b94196ab549570cc703cad6f3",
     "semantic_hash": ""
   },
@@ -222,8 +222,8 @@
     "semantic_hash": "e804760caec08fe0d4330e8db1d9b106"
   },
   "src/app/shared/data-table/data-table-column.model.ts": {
-    "mtime": 1794006726.2619436,
-    "seen": 1794006900.732994,
+    "mtime": 1794007406.6275449,
+    "seen": 1794016084.1200929,
     "ast_hash": "c3bd0321a8f6eabc132379a86b0fb5ec",
     "semantic_hash": ""
   },
@@ -354,8 +354,8 @@
     "semantic_hash": "7dafdd2147039f5ea293d786841c91c6"
   },
   "src/app/shared/data-table/data-table.component.html": {
-    "mtime": 1794006727.421294,
-    "seen": 1794006900.745097,
+    "mtime": 1794007406.6282468,
+    "seen": 1794016084.1305,
     "ast_hash": "08ae51d4661fe1cbfce935aea6277d3e",
     "semantic_hash": ""
   },
@@ -858,21 +858,21 @@
     "semantic_hash": ""
   },
   "src/app/features/movements/movements.component.spec.ts": {
-    "mtime": 1794006813.3151867,
-    "seen": 1794006900.731603,
+    "mtime": 1794007406.6249275,
+    "seen": 1794016084.118942,
     "ast_hash": "1944ac64943efa3b1280f414f273cd71",
     "semantic_hash": ""
   },
   "src/app/features/movements/movements.component.ts": {
-    "mtime": 1794006850.3547173,
-    "seen": 1794006900.7316082,
+    "mtime": 1794007406.6257775,
+    "seen": 1794016084.118947,
     "ast_hash": "854495236fe76b3390bcd86bc186def6",
     "semantic_hash": ""
   },
   "src/app/features/movements/movements.component.html": {
-    "mtime": 1794006805.0196185,
-    "seen": 1794006900.744559,
-    "ast_hash": "3aebbccc004b6f51cd4a1c64b4b264b0",
+    "mtime": 1794016071.0859108,
+    "seen": 1794016084.13005,
+    "ast_hash": "78346242eebb66037d9846d569b1b3c3",
     "semantic_hash": ""
   },
   "src/app/shared/date/flowbite-date.component.ts": {
